@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 
+using BizHawk.Client.Common;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class InputCompositeWidget : UserControl

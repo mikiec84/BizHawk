@@ -1,29 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 using BizHawk.Emulation.Common;
-using BizHawk.Client.Common;
 
-namespace BizHawk.Client.EmuHawk
+namespace BizHawk.Client.Common
 {
 	public partial class PlatformChooser : Form
 	{
 		public RomGame RomGame { get; set; }
 		public string PlatformChoice { get; set; }
 
-		private RadioButton SelectedRadio
-		{
-			get
-			{
-				return PlatformsGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-			}
-		}
+		private RadioButton SelectedRadio => PlatformsGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
 
 		public PlatformChooser()
 		{
@@ -35,15 +25,9 @@ namespace BizHawk.Client.EmuHawk
 
 		private void PlatformChooser_Load(object sender, EventArgs e)
 		{
-			if (RomGame.RomData.Length > 10 * 1024 * 1024) // If 10mb, show in megabytes
-			{
-				RomSizeLabel.Text = string.Format("{0:n0}", (RomGame.RomData.Length / 1024 / 1024)) + "mb";
-			}
-			else
-			{
-				RomSizeLabel.Text = string.Format("{0:n0}", (RomGame.RomData.Length / 1024)) + "kb";
-			}
-
+			RomSizeLabel.Text = RomGame.RomData.Length > 0xA00000 // 10 MiB
+				? $"{RomGame.RomData.Length << 20:N0}MiB"
+				: $"{RomGame.RomData.Length << 10:N0}KiB";
 			ExtensionLabel.Text = RomGame.Extension.ToLower();
 			HashBox.Text = RomGame.GameInfo.Hash;
 			int count = 0;

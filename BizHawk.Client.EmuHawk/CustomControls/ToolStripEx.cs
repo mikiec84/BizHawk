@@ -41,41 +41,6 @@ public class ToolStripEx : ToolStrip
 /// <summary>
 /// This class adds on to the functionality provided in System.Windows.Forms.MenuStrip.
 /// </summary>
-public class MenuStripEx : MenuStrip
-{
-	private bool clickThrough = true;
-
-	/// <summary>
-	/// Gets or sets whether the ToolStripEx honors item clicks when its containing form does
-	/// not have input focus.
-	/// </summary>
-	public bool ClickThrough
-	{
-		get
-		{
-			return clickThrough;
-		}
-		set
-		{
-			clickThrough = value;
-		}
-	}
-
-	protected override void WndProc(ref Message m)
-	{
-		base.WndProc(ref m);
-		if (clickThrough &&
-			m.Msg == NativeConstants.WM_MOUSEACTIVATE &&
-			m.Result == (IntPtr)NativeConstants.MA_ACTIVATEANDEAT)
-		{
-			m.Result = (IntPtr)NativeConstants.MA_ACTIVATE;
-		}
-	}
-}
-
-/// <summary>
-/// This class adds on to the functionality provided in System.Windows.Forms.MenuStrip.
-/// </summary>
 public class StatusStripEx : StatusStrip
 {
 	private bool clickThrough = true;

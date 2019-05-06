@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using OpenTK.Input;
 
-namespace BizHawk.Client.EmuHawk
+namespace BizHawk.Client.Common
 {
 	public static class OTK_Keyboard
 	{

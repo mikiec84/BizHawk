@@ -56,8 +56,14 @@
       <HintPath>..\output\dll\nlua\NLua.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4">
+      <HintPath>..\References\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="SharpCompress">
       <HintPath>..\References\SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\References\x64\SlimDX.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -119,8 +125,15 @@
     <Compile Include="7z\StreamWrappers.cs" />
     <Compile Include="Api\CoreSystem.cs" />
     <Compile Include="Api\JoypadButton.cs" />
+    <Compile Include="ArchiveChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArchiveChooser.Designer.cs">
+      <DependentUpon>ArchiveChooser.cs</DependentUpon>
+    </Compile>
     <Compile Include="BinarySaveStates.cs" />
     <Compile Include="BitmapBufferVideoProvider.cs" />
+    <Compile Include="ClientMainFormCommon.cs" />
     <Compile Include="config\Binding.cs" />
     <Compile Include="config\Config.cs" />
     <Compile Include="config\ConfigPersistAttribute.cs" />
@@ -145,6 +158,15 @@
     <Compile Include="inputAdapters\OverrideAdaptor.cs" />
     <Compile Include="inputAdapters\SimpleController.cs" />
     <Compile Include="inputAdapters\UDLRController.cs" />
+    <Compile Include="input\ControllerInputCoalescer.cs" />
+    <Compile Include="input\GamePad.cs" />
+    <Compile Include="input\GamePad360.cs" />
+    <Compile Include="input\Input.cs" />
+    <Compile Include="input\InputCoalescer.cs" />
+    <Compile Include="input\IPCKeyInput.cs" />
+    <Compile Include="input\Keyboard.cs" />
+    <Compile Include="input\OTK_Gamepad.cs" />
+    <Compile Include="input\OTK_Keyboard.cs" />
     <Compile Include="IonicZipWriter.cs" />
     <Compile Include="IPS.cs" />
     <Compile Include="IZipWriter.cs" />
@@ -175,6 +197,7 @@
     <Compile Include="lua\LuaMemoryBase.cs" />
     <Compile Include="lua\LuaSandbox.cs" />
     <Compile Include="lua\NamedLuaFunction.cs" />
+    <Compile Include="MenuStripEx.cs" />
     <Compile Include="miniz\LibMiniz.cs" />
     <Compile Include="miniz\MinizZipWriter.cs" />
     <Compile Include="movie\bk2\Bk2ControllerAdapter.cs" />
@@ -250,6 +273,12 @@
     <Compile Include="NESGameGenieEncoderDecoder.cs" />
     <Compile Include="OpenAdvanced.cs" />
     <Compile Include="PathManager.cs" />
+    <Compile Include="PlatformChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlatformChooser.Designer.cs">
+      <DependentUpon>PlatformChooser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuickBmpFile.cs" />
     <Compile Include="RecentFiles.cs" />
@@ -260,6 +289,7 @@
     <Compile Include="RomLoader.cs" />
     <Compile Include="SaveSlotManager.cs" />
     <Compile Include="SavestateManager.cs" />
+    <Compile Include="ScreenSaver.cs" />
     <Compile Include="SharpCompressArchiveHandler.cs" />
     <Compile Include="SevenZipSharpArchiveHandler.cs" />
     <Compile Include="SevenZipWriter.cs" />
@@ -288,6 +318,7 @@
     <Compile Include="tools\Watch\WatchList\WatchValueDifferenceComparer.cs" />
     <Compile Include="tools\Watch\WatchSize.cs" />
     <Compile Include="tools\Watch\WordWatch.cs" />
+    <Compile Include="UIHelper.cs" />
     <Compile Include="XmlGame.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +358,15 @@
       <Project>{9F84A0B2-861E-4EF4-B89B-5E2A3F38A465}</Project>
       <Name>BizHawk.Bizware.BizwareGL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ArchiveChooser.resx">
+      <DependentUpon>ArchiveChooser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlatformChooser.resx">
+      <DependentUpon>PlatformChooser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

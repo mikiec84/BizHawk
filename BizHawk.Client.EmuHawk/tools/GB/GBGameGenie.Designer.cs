@@ -1,4 +1,6 @@
-﻿namespace BizHawk.Client.EmuHawk
+﻿using BizHawk.Client.Common;
+
+namespace BizHawk.Client.EmuHawk
 {
 	partial class GBGameGenie
     {

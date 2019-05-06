@@ -756,7 +756,7 @@ namespace BizHawk.Client.EmuHawk
 
 		private void PauseMenuItem_Click(object sender, EventArgs e)
 		{
-			if (IsTurboSeeking || IsSeeking)
+			if (IsTurboSeeking)
 			{
 				PauseOnFrame = null;
 			}

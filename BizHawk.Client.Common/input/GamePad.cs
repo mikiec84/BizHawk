@@ -3,56 +3,83 @@ using System.Collections.Generic;
 using SlimDX;
 using SlimDX.DirectInput;
 
-namespace BizHawk.Client.MultiHawk
+namespace BizHawk.Client.Common
 {
 	public class GamePad
 	{
 		// ********************************** Static interface **********************************
 
-		static DirectInput dinput;
-		public static List<GamePad> Devices;
+		private static readonly object _syncObj = new object();
+		private static readonly List<GamePad> _devices = new List<GamePad>();
+		private static DirectInput _dinput;
 
-		public static void Initialize(IntPtr parent)
+		public static void Initialize(IntPtr mainFormHandle)
 		{
-			if (dinput == null)
-				dinput = new DirectInput();
-
-			Devices = new List<GamePad>();
-
-			foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
+			lock (_syncObj)
 			{
-				Console.WriteLine("joydevice: {0} `{1}`", device.InstanceGuid, device.ProductName);
+				Cleanup();
 
-				if (device.ProductName.Contains("XBOX 360"))
-					continue; // Don't input XBOX 360 controllers into here; we'll process them via XInput (there are limitations in some trigger axes when xbox pads go over xinput)
+				_dinput = new DirectInput();
 
-				var joystick = new Joystick(dinput, device.InstanceGuid);
-				joystick.SetCooperativeLevel(parent, CooperativeLevel.Background | CooperativeLevel.Nonexclusive);
-				foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
+				foreach (DeviceInstance device in _dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
 				{
-					if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
-						joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-1000, 1000);
-				}
-				joystick.Acquire();
+					Console.WriteLine("joydevice: {0} `{1}`", device.InstanceGuid, device.ProductName);
 
-				GamePad p = new GamePad(device.InstanceName, device.InstanceGuid, joystick);
-				Devices.Add(p);
+					if (device.ProductName.Contains("XBOX 360"))
+						continue; // Don't input XBOX 360 controllers into here; we'll process them via XInput (there are limitations in some trigger axes when xbox pads go over xinput)
+
+					var joystick = new Joystick(_dinput, device.InstanceGuid);
+					joystick.SetCooperativeLevel(mainFormHandle, CooperativeLevel.Background | CooperativeLevel.Nonexclusive);
+					foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
+					{
+						if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
+							joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-1000, 1000);
+					}
+					joystick.Acquire();
+
+					GamePad p = new GamePad(device.InstanceName, device.InstanceGuid, joystick, _devices.Count);
+					_devices.Add(p);
+				}
+			}
+		}
+
+		public static IEnumerable<GamePad> EnumerateDevices()
+		{
+			lock (_syncObj)
+			{
+				foreach (var device in _devices)
+				{
+					yield return device;
+				}
 			}
 		}
 
 		public static void UpdateAll()
 		{
-			foreach (var device in Devices)
-				device.Update();
+			lock (_syncObj)
+			{
+				foreach (var device in _devices)
+				{
+					device.Update();
+				}
+			}
 		}
 
-		public static void CloseAll()
+		public static void Cleanup()
 		{
-			if (Devices != null)
+			lock (_syncObj)
 			{
-				foreach (var device in Devices)
+				foreach (var device in _devices)
+				{
 					device.joystick.Dispose();
-				Devices.Clear();
+				}
+				_devices.Clear();
+
+				if (_dinput != null)
+				{
+					_dinput.Dispose();
+					_dinput = null;
+				}
 			}
 		}
 
@@ -63,11 +90,12 @@ namespace BizHawk.Client.MultiHawk
 		readonly Joystick joystick;
 		JoystickState state = new JoystickState();
 
-		GamePad(string name, Guid guid, Joystick joystick)
+		GamePad(string name, Guid guid, Joystick joystick, int index)
 		{
 			this.name = name;
 			this.guid = guid;
 			this.joystick = joystick;
+			PlayerNumber = index + 1;
 			Update();
 			InitializeCallbacks();
 		}
@@ -107,7 +135,7 @@ namespace BizHawk.Client.MultiHawk
 
 		public string Name { get { return name; } }
 		public Guid Guid { get { return guid; } }
-
+		public int PlayerNumber { get; private set; }
 
 		public string ButtonName(int index)
 		{

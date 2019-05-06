@@ -38,7 +38,7 @@ using BizHawk.Emulation.Cores.Consoles.Nintendo.Gameboy;
 
 namespace BizHawk.Client.EmuHawk
 {
-	public partial class MainForm : Form
+	public partial class MainForm : ClientMainFormCommon
 	{
 		#region Constructors and Initialization, and Tear down
 
@@ -225,7 +225,7 @@ namespace BizHawk.Client.EmuHawk
 				}
 			};
 
-			Input.Initialize();
+			Input.Initialize(GlobalWin.MainForm);
 			InitControls();
 
 			var comm = CreateCoreComm();
@@ -454,7 +454,7 @@ namespace BizHawk.Client.EmuHawk
 
 				// handle events and dispatch as a hotkey action, or a hotkey button, or an input button
 				ProcessInput();
-				Global.ClientControls.LatchFromPhysical(_hotkeyCoalescer);
+				Global.ClientControls.LatchFromPhysical(HotkeyCoalescer);
 
 				Global.ActiveController.LatchFromPhysical(Global.ControllerInputCoalescer);
 
@@ -609,9 +609,11 @@ namespace BizHawk.Client.EmuHawk
 
 		public bool IsSeeking => PauseOnFrame.HasValue;
 
-		private bool IsTurboSeeking => PauseOnFrame.HasValue && Global.Config.TurboSeek;
+		private bool IsTurboSeeking => IsSeeking && Global.Config.TurboSeek;
 
-		public bool IsTurboing => Global.ClientControls["Turbo"] || IsTurboSeeking;
+		public override bool IsTurboing => base.IsTurboing || IsTurboSeeking;
+		
+		protected override MenuStripEx FormMenuTopLevel => MainformMenu;
 
 		#endregion
 
@@ -634,16 +636,10 @@ namespace BizHawk.Client.EmuHawk
 			GlobalWin.OSD.AddMessage("Core reboot needed for this setting");
 		}
 
-		/// <summary>
-		/// Controls whether the app generates input events. should be turned off for most modal dialogs
-		/// </summary>
-		public bool AllowInput(bool yieldAlt)
+		/// <inheritdoc cref="ClientMainFormCommon.AllowInput" />
+		public override bool AllowInput(bool yieldAlt)
 		{
-			// the main form gets input
-			if (ActiveForm == this)
-			{
-				return true;
-			}
+			if (ActiveForm == this) return true; // the main form gets input
 
 			// even more special logic for TAStudio:
 			// TODO - implement by event filter in TAStudio
@@ -679,15 +675,38 @@ namespace BizHawk.Client.EmuHawk
 			return false;
 		}
 
-		// TODO: make this an actual property, set it when loading a Rom, and pass it dialogs, etc
-		// This is a quick hack to reduce the dependency on Global.Emulator
-		private IEmulator Emulator
+		protected override void ProcessInput()
 		{
-			get
-			{
-				return Global.Emulator;
-			}
+			base.ProcessInput();
 
+			// also handle floats
+			Global.ControllerInputCoalescer.AcceptNewFloats(Input.Instance.GetFloats().Select(o =>
+			{
+				// mitigate MonoDevelop debug exceptions
+				if (GlobalWin.DisplayManager == null) return o;
+
+				// hackish
+				if (o.Item1 == "WMouse X")
+				{
+					var p = GlobalWin.DisplayManager.UntransformPoint(new Point((int)o.Item2, 0));
+					float x = p.X / (float)_currentVideoProvider.BufferWidth;
+					return new Tuple<string, float>("WMouse X", (x * 20000) - 10000);
+				}
+
+				if (o.Item1 == "WMouse Y")
+				{
+					var p = GlobalWin.DisplayManager.UntransformPoint(new Point(0, (int)o.Item2));
+					float y = p.Y / (float)_currentVideoProvider.BufferHeight;
+					return new Tuple<string, float>("WMouse Y", (y * 20000) - 10000);
+				}
+
+				return o;
+			}));
+		}
+
+		/// <inheritdoc cref="ClientMainFormCommon.Emulator" />
+		protected override IEmulator Emulator
+		{
 			set
 			{
 				Global.Emulator = value;
@@ -710,139 +729,6 @@ namespace BizHawk.Client.EmuHawk
 		{
 			Input.Instance.ControlInputFocus(this, Input.InputFocus.Mouse, false);
 			base.OnDeactivate(e);
-		}
-
-		private void ProcessInput()
-		{
-			ControllerInputCoalescer conInput = (ControllerInputCoalescer)Global.ControllerInputCoalescer;
-
-			for (;;)
-			{
-				// loop through all available events
-				var ie = Input.Instance.DequeueEvent();
-				if (ie == null)
-				{
-					break;
-				}
-
-				// useful debugging:
-				// Console.WriteLine(ie);
-
-				// TODO - wonder what happens if we pop up something interactive as a response to one of these hotkeys? may need to purge further processing
-
-				// look for hotkey bindings for this key
-				var triggers = Global.ClientControls.SearchBindings(ie.LogicalButton.ToString());
-				if (triggers.Count == 0)
-				{
-					// Maybe it is a system alt-key which hasnt been overridden
-					if (ie.EventType == Input.InputEventType.Press)
-					{
-						if (ie.LogicalButton.Alt && ie.LogicalButton.Button.Length == 1)
-						{
-							var c = ie.LogicalButton.Button.ToLower()[0];
-							if ((c >= 'a' && c <= 'z') || c == ' ')
-							{
-								SendAltKeyChar(c);
-							}
-						}
-
-						if (ie.LogicalButton.Alt && ie.LogicalButton.Button == "Space")
-						{
-							SendPlainAltKey(32);
-						}
-					}
-
-					// ordinarily, an alt release with nothing else would move focus to the menubar. but that is sort of useless, and hard to implement exactly right.
-				}
-
-				// zero 09-sep-2012 - all input is eligible for controller input. not sure why the above was done.
-				// maybe because it doesnt make sense to me to bind hotkeys and controller inputs to the same keystrokes
-
-				// adelikat 02-dec-2012 - implemented options for how to handle controller vs hotkey conflicts. This is primarily motivated by computer emulation and thus controller being nearly the entire keyboard
-				bool handled;
-				switch (Global.Config.Input_Hotkey_OverrideOptions)
-				{
-					default:
-					case 0: // Both allowed
-						conInput.Receive(ie);
-
-						handled = false;
-						if (ie.EventType == Input.InputEventType.Press)
-						{
-							handled = triggers.Aggregate(handled, (current, trigger) => current | CheckHotkey(trigger));
-						}
-
-						// hotkeys which arent handled as actions get coalesced as pollable virtual client buttons
-						if (!handled)
-						{
-							_hotkeyCoalescer.Receive(ie);
-						}
-
-						break;
-					case 1: // Input overrides Hokeys
-						conInput.Receive(ie);
-						if (!Global.ActiveController.HasBinding(ie.LogicalButton.ToString()))
-						{
-							handled = false;
-							if (ie.EventType == Input.InputEventType.Press)
-							{
-								handled = triggers.Aggregate(handled, (current, trigger) => current | CheckHotkey(trigger));
-							}
-
-							// hotkeys which arent handled as actions get coalesced as pollable virtual client buttons
-							if (!handled)
-							{
-								_hotkeyCoalescer.Receive(ie);
-							}
-						}
-
-						break;
-					case 2: // Hotkeys override Input
-						handled = false;
-						if (ie.EventType == Input.InputEventType.Press)
-						{
-							handled = triggers.Aggregate(handled, (current, trigger) => current | CheckHotkey(trigger));
-						}
-
-						// hotkeys which arent handled as actions get coalesced as pollable virtual client buttons
-						if (!handled)
-						{
-							_hotkeyCoalescer.Receive(ie);
-
-							// Check for hotkeys that may not be handled through Checkhotkey() method, reject controller input mapped to these
-							if (!triggers.Any(IsInternalHotkey))
-							{
-								conInput.Receive(ie);
-							}
-						}
-
-						break;
-				}
-			} // foreach event
-
-			// also handle floats
-			conInput.AcceptNewFloats(Input.Instance.GetFloats().Select(o =>
-			{
-				// mitigate MonoDevelop debug exceptions
-				if (GlobalWin.DisplayManager == null) return o;
-
-				// hackish
-				if (o.Item1 == "WMouse X")
-				{
-					var p = GlobalWin.DisplayManager.UntransformPoint(new Point((int)o.Item2, 0));
-					float x = p.X / (float)_currentVideoProvider.BufferWidth;
-					return new Tuple<string, float>("WMouse X", (x * 20000) - 10000);
-				}
-
-				if (o.Item1 == "WMouse Y")
-				{
-					var p = GlobalWin.DisplayManager.UntransformPoint(new Point(0, (int)o.Item2));
-					float y = p.Y / (float)_currentVideoProvider.BufferHeight;
-					return new Tuple<string, float>("WMouse Y", (y * 20000) - 10000);
-				}
-
-				return o;
-			}));
 		}
 
 		public void RebootCore()
@@ -1366,7 +1252,7 @@ namespace BizHawk.Client.EmuHawk
 		// AVI/WAV state
 		private IVideoWriter _currAviWriter;
 
-		private AutofireController _autofireNullControls;
+		private AutofireController _autofireNullControls => AutofireNullControls;
 
 		// Sound refator TODO: we can enforce async mode here with a property that gets/sets this but does an async check
 		private ISoundProvider _aviSoundInputAsync; // Note: This sound provider must be in async mode!
@@ -1415,11 +1301,6 @@ namespace BizHawk.Client.EmuHawk
 		private Bitmap _statusBarDiskLightOffImage;
 		private Bitmap _linkCableOn;
 		private Bitmap _linkCableOff;
-
-		// input state which has been destined for game controller inputs are coalesced here
-		// public static ControllerInputCoalescer ControllerInputCoalescer = new ControllerInputCoalescer();
-		// input state which has been destined for client hotkey consumption are colesced here
-		private readonly InputCoalescer _hotkeyCoalescer = new InputCoalescer();
 
 		public PresentationPanel PresentationPanel { get; }
 
@@ -1859,24 +1740,6 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private void InitControls()
-		{
-			var controls = new Controller(
-				new ControllerDefinition
-				{
-					Name = "Emulator Frontend Controls",
-					BoolButtons = Global.Config.HotkeyBindings.Select(x => x.DisplayName).ToList()
-				});
-
-			foreach (var b in Global.Config.HotkeyBindings)
-			{
-				controls.BindMulti(b.DisplayName, b.Bindings);
-			}
-
-			Global.ClientControls = controls;
-			_autofireNullControls = new AutofireController(NullController.Instance.Definition, Emulator);
-		}
-
 		private void LoadMoviesFromRecent(string path)
 		{
 			if (File.Exists(path))
@@ -1992,15 +1855,6 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private static void CheckMessages()
-		{
-			Application.DoEvents();
-			if (ActiveForm != null)
-			{
-				ScreenSaver.ResetTimerPeriodically();
-			}
-		}
-
 		private void AutohideCursor(bool hide)
 		{
 			if (hide && !_cursorHidden)
@@ -2075,57 +1929,6 @@ namespace BizHawk.Client.EmuHawk
 				GlobalWin.DisplayManager.Blank();
 			else
 				GlobalWin.DisplayManager.UpdateSource(video);
-		}
-
-		// sends a simulation of a plain alt key keystroke
-		private void SendPlainAltKey(int lparam)
-		{
-			var m = new Message { WParam = new IntPtr(0xF100), LParam = new IntPtr(lparam), Msg = 0x0112, HWnd = Handle };
-			base.WndProc(ref m);
-		}
-
-		// sends an alt+mnemonic combination
-		private void SendAltKeyChar(char c)
-		{
-			switch (PlatformLinkedLibSingleton.CurrentOS)
-			{
-				case PlatformLinkedLibSingleton.DistinctOS.Linux:
-				case PlatformLinkedLibSingleton.DistinctOS.macOS:
-					// no mnemonics for you
-					break;
-				case PlatformLinkedLibSingleton.DistinctOS.Windows:
-					//HACK
-					var _ = typeof(ToolStrip).InvokeMember(
-						"ProcessMnemonicInternal",
-						System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Instance,
-						null,
-						MainformMenu,
-						new object[] { c });
-					break;
-			}
-		}
-
-		public static string FormatFilter(params string[] args)
-		{
-			var sb = new StringBuilder();
-			if (args.Length % 2 != 0)
-			{
-				throw new ArgumentException();
-			}
-
-			var num = args.Length / 2;
-			for (int i = 0; i < num; i++)
-			{
-				sb.AppendFormat("{0} ({1})|{1}", args[i * 2], args[(i * 2) + 1]);
-				if (i != num - 1)
-				{
-					sb.Append('|');
-				}
-			}
-
-			var str = sb.ToString().Replace("%ARCH%", "*.zip;*.rar;*.7z;*.gz");
-			str = str.Replace(";", "; ");
-			return str;
 		}
 
 		public static string RomFilter
@@ -2249,11 +2052,6 @@ namespace BizHawk.Client.EmuHawk
 			{
 				e.Settings = Global.Config.GetCoreSyncSettings(e.Core);
 			}
-		}
-
-		private static void CoreSettings(object sender, RomLoader.SettingsLoadArgs e)
-		{
-			e.Settings = Global.Config.GetCoreSettings(e.Core);
 		}
 
 		/// <summary>
@@ -2742,17 +2540,6 @@ namespace BizHawk.Client.EmuHawk
 				"Display Vsync set to " + (Global.Config.VSync ? "on" : "off"));
 		}
 
-		private static bool StateErrorAskUser(string title, string message)
-		{
-			var result = MessageBox.Show(
-				message,
-				title,
-				MessageBoxButtons.YesNo,
-				MessageBoxIcon.Question);
-
-			return result == DialogResult.Yes;
-		}
-
 		private void FdsInsertDiskMenuAdd(string name, string button, string msg)
 		{
 			FDSControlsMenuItem.DropDownItems.Add(name, null, delegate
@@ -2776,7 +2563,7 @@ namespace BizHawk.Client.EmuHawk
 			switch (m.Msg)
 			{
 				case WmDevicechange:
-					GamePad.Initialize();
+					GamePad.Initialize(GlobalWin.MainForm.Handle);
 					GamePad360.Initialize();
 					break;
 			}
@@ -3509,25 +3296,9 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private int? LoadArhiveChooser(HawkFile file)
-		{
-			var ac = new ArchiveChooser(file);
-			if (ac.ShowDialog(this) == DialogResult.OK)
-			{
-				return ac.SelectedMemberIndex;
-			}
-
-			return null;
-		}
-
 		#endregion
 
 		#region Scheduled for refactor
-
-		private void ShowMessageCoreComm(string message)
-		{
-			MessageBox.Show(this, message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-		}
 
 		private void ShowLoadError(object sender, RomLoader.RomErrorArgs e)
 		{
@@ -3565,17 +3336,6 @@ namespace BizHawk.Client.EmuHawk
 		private void NotifyCoreComm(string message)
 		{
 			GlobalWin.OSD.AddMessage(message);
-		}
-
-		private string ChoosePlatformForRom(RomGame rom)
-		{
-			var platformChooser = new PlatformChooser
-			{
-				RomGame = rom
-			};
-
-			platformChooser.ShowDialog();
-			return platformChooser.PlatformChoice;
 		}
 
 		public class LoadRomArgs

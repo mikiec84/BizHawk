@@ -8,7 +8,8 @@ namespace BizHawk.Client.EmuHawk
 {
 	public partial class MainForm
 	{
-		private bool CheckHotkey(string trigger)
+		/// <inheritdoc cref="ClientMainFormCommon.CheckHotkey" />
+		protected override bool CheckHotkey(string trigger)
 		{
 			switch (trigger)
 			{
@@ -687,8 +688,8 @@ namespace BizHawk.Client.EmuHawk
 			return true;
 		}
 
-		// Determines if the value is a hotkey  that would be handled outside of the CheckHotkey method
-		private bool IsInternalHotkey(string trigger)
+		/// <inheritdoc cref="ClientMainFormCommon.IsInternalHotkey" />
+		protected override bool IsInternalHotkey(string trigger)
 		{
 			switch (trigger)
 			{

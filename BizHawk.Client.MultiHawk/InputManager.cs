@@ -10,9 +10,9 @@ namespace BizHawk.Client.MultiHawk
 {
 	public class InputManager
 	{
-		Mainform _mainForm;
+		MainForm _mainForm;
 
-		public InputManager(Mainform mainForm)
+		public InputManager(MainForm mainForm)
 		{
 			_mainForm = mainForm;
 		}

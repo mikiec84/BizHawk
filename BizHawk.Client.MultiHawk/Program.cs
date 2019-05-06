@@ -112,12 +112,10 @@ namespace BizHawk.Client.MultiHawk
 				message += "\n\nStackTrace:\n" + e.StackTrace;
 				MessageBox.Show(message);
 			}
-#if WINDOWS
 			finally
 			{
-				GamePad.CloseAll();
+				Input.Cleanup();
 			}
-#endif
 		}
 
 

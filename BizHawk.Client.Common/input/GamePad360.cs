@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+
+using BizHawk.Common;
+
 using SlimDX.XInput;
+
+using SlimDXController = SlimDX.XInput.Controller;
 
 #pragma warning disable 169
 #pragma warning disable 414
 
-namespace BizHawk.Client.EmuHawk
+namespace BizHawk.Client.Common
 {
 	public class GamePad360
 	{
@@ -48,12 +53,12 @@ namespace BizHawk.Client.EmuHawk
 			{
 				//some users wont even have xinput installed. in order to avoid spurious exceptions and possible instability, check for the library first
 				HasGetInputStateEx = true;
-				LibraryHandle = Win32.LoadLibrary("xinput1_3.dll");
+				LibraryHandle = PlatformLinkedLibSingleton.LinkedLibManager.LoadPlatformSpecific("xinput1_3.dll");
 				if(LibraryHandle == IntPtr.Zero)
-					LibraryHandle = Win32.LoadLibrary("xinput1_4.dll");
+					LibraryHandle = PlatformLinkedLibSingleton.LinkedLibManager.LoadPlatformSpecific("xinput1_4.dll");
 				if(LibraryHandle == IntPtr.Zero)
 				{
-					LibraryHandle = Win32.LoadLibrary("xinput9_1_0.dll");
+					LibraryHandle = PlatformLinkedLibSingleton.LinkedLibManager.LoadPlatformSpecific("xinput9_1_0.dll");
 					HasGetInputStateEx = false;
 				}
 
@@ -67,7 +72,7 @@ namespace BizHawk.Client.EmuHawk
 
 					//don't remove this code. it's important to catch errors on systems with broken xinput installs.
 					//(probably, checking for the library was adequate, but lets not get rid of this anyway)
-					var test = new SlimDX.XInput.Controller(UserIndex.One).IsConnected;
+					var test = new SlimDXController(UserIndex.One).IsConnected;
 					_isAvailable = true;
 				}
 			}
@@ -88,10 +93,10 @@ namespace BizHawk.Client.EmuHawk
 				//i'm not sure how troublesome this will be
 				//maybe we should get rid of slimdx for this altogether
 
-				var c1 = new Controller(UserIndex.One);
-				var c2 = new Controller(UserIndex.Two);
-				var c3 = new Controller(UserIndex.Three);
-				var c4 = new Controller(UserIndex.Four);
+				var c1 = new SlimDXController(UserIndex.One);
+				var c2 = new SlimDXController(UserIndex.Two);
+				var c3 = new SlimDXController(UserIndex.Three);
+				var c4 = new SlimDXController(UserIndex.Four);
 
 				if (c1.IsConnected) _devices.Add(new GamePad360(0, c1));
 				if (c2.IsConnected) _devices.Add(new GamePad360(1, c2));
@@ -124,13 +129,13 @@ namespace BizHawk.Client.EmuHawk
 
 		// ********************************** Instance Members **********************************
 
-		readonly Controller controller;
+		readonly SlimDXController controller;
 		uint index0;
 		XINPUT_STATE state;
 
 		public int PlayerNumber { get { return (int)index0 + 1; } }
 
-		GamePad360(uint index0, Controller c)
+		GamePad360(uint index0, SlimDXController c)
 		{
 			this.index0 = index0;
 			controller = c;

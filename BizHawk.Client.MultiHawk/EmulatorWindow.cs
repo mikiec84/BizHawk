@@ -23,7 +23,7 @@ namespace BizHawk.Client.MultiHawk
 	// but fail sooner and with a clear message instead of making misc calls to AsVideoProvider that will fail
 	public partial class EmulatorWindow : Form
 	{
-		public EmulatorWindow(Mainform parent)
+		public EmulatorWindow(MainForm parent)
 		{
 			InitializeComponent();
 			Closing += (o, e) =>
@@ -42,7 +42,7 @@ namespace BizHawk.Client.MultiHawk
 			}
 		}
 
-		public Mainform MainForm { get; private set; }
+		public MainForm MainForm { get; private set; }
 		public IEmulator Emulator { get; set; }
 		public CoreComm CoreComm { get; set; }
 		public GameInfo Game { get; set; }

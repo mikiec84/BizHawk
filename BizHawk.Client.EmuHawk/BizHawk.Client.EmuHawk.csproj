@@ -125,12 +125,6 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="ArchiveChooser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ArchiveChooser.Designer.cs">
-      <DependentUpon>ArchiveChooser.cs</DependentUpon>
-    </Compile>
     <Compile Include="ArgParser.cs" />
     <Compile Include="AVOut\AviWriter.cs" />
     <Compile Include="AVOut\AVSync.cs" />
@@ -699,13 +693,7 @@
     <Compile Include="Api\ApiManager.cs" />
     <Compile Include="Api\Libraries\CommApi.cs" />
     <!--<Compile Include="Input\GamePad.cs" Condition=" '$(OS)' == 'Windows_NT' " />-->
-    <Compile Include="Input\GamePad.cs" />
-    <Compile Include="Input\GamePad360.cs" />
-    <Compile Include="Input\Input.cs" />
-    <Compile Include="Input\OTK_Gamepad.cs" />
-    <Compile Include="Input\OTK_Keyboard.cs" />
     <Compile Include="IControlMainform.cs" />
-    <Compile Include="Input\IPCKeyInput.cs" />
     <Compile Include="JumpLists.cs" />
     <Compile Include="LogConsole.cs" />
     <Compile Include="LogWindow.cs">
@@ -729,7 +717,6 @@
       <DependentUpon>EditCommentsForm.cs</DependentUpon>
     </Compile>
     <!--<Compile Include="Input\Keyboard.cs" Condition=" '$(OS)' == 'Windows_NT' " />-->
-    <Compile Include="Input\Keyboard.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -779,12 +766,6 @@
     </Compile>
     <Compile Include="CustomControls\PlatformAgnosticVirtualListView.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PlatformChooser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PlatformChooser.Designer.cs">
-      <DependentUpon>PlatformChooser.cs</DependentUpon>
     </Compile>
     <Compile Include="PresentationPanel.cs" />
     <Compile Include="Program.cs" />
@@ -1346,7 +1327,6 @@
     <Compile Include="tools\Watch\WatchValueBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UIHelper.cs" />
     <Compile Include="UpdateChecker.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1569,9 +1549,6 @@
     <EmbeddedResource Include="OpenAdvancedChooser.resx">
       <DependentUpon>OpenAdvancedChooser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlatformChooser.resx">
-      <DependentUpon>PlatformChooser.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -1790,7 +1767,6 @@
     <Compile Include="tools\InputPrompt.Designer.cs">
       <DependentUpon>InputPrompt.cs</DependentUpon>
     </Compile>
-    <Compile Include="ScreenSaver.cs" />
     <Compile Include="tools\ToolBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1848,10 +1824,6 @@
   <ItemGroup>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ArchiveChooser.resx">
-      <DependentUpon>ArchiveChooser.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="BizBox.resx">

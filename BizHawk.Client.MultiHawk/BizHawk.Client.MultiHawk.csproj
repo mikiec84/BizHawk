@@ -83,14 +83,11 @@
     </Compile>
     <Compile Include="GlobalWin.cs" />
     <Compile Include="InputManager.cs" />
-    <Compile Include="Input\GamePad.cs" />
-    <Compile Include="Input\Input.cs" />
-    <Compile Include="Input\Keyboard.cs" />
-    <Compile Include="Mainform.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Mainform.Designer.cs">
-      <DependentUpon>Mainform.cs</DependentUpon>
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PresentationPanel.cs" />
     <Compile Include="Program.cs" />
@@ -107,7 +104,7 @@
       <DependentUpon>EmulatorWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mainform.resx">
-      <DependentUpon>Mainform.cs</DependentUpon>
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

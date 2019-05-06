@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using OpenTK.Input;
 
-namespace BizHawk.Client.EmuHawk
+namespace BizHawk.Client.Common
 {
 	public class OTK_GamePad
 	{

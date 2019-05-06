@@ -1,6 +1,8 @@
-﻿namespace BizHawk.Client.MultiHawk
+﻿using BizHawk.Client.Common;
+
+namespace BizHawk.Client.MultiHawk
 {
-	partial class Mainform
+	partial class MainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -479,7 +481,7 @@
 			this.Controls.Add(this.WorkspacePanel);
 			this.Controls.Add(this.MainformMenu);
 			this.MainMenuStrip = this.MainformMenu;
-			this.Name = "Mainform";
+			this.Name = "MainForm";
 			this.Text = "MultiHawk";
 			this.Load += new System.EventHandler(this.Mainform_Load);
 			this.MainformMenu.ResumeLayout(false);
