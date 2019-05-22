@@ -171,7 +171,7 @@ namespace BizHawk.Client.Common
 
 		public enum EDispMethod
 		{
-			OpenGL, GdiPlus, SlimDX9
+			OpenGL, GdiPlus, SlimDX9, Vulkan
 		}
 
 		public enum ESoundOutputMethod
@@ -411,9 +411,9 @@ namespace BizHawk.Client.Common
 		public bool DisplayRamWatch = false;
 
 		// Hex Editor Colors
-		public Color HexBackgrndColor = Color.FromName("Control");
-		public Color HexForegrndColor = Color.FromName("ControlText");
-		public Color HexMenubarColor = Color.FromName("Control");
+		public Color HexBackgrndColor = SystemColors.Control;
+		public Color HexForegrndColor = SystemColors.ControlText;
+		public Color HexMenubarColor = SystemColors.Control;
 		public Color HexFreezeColor = Color.LightBlue;
 		public Color HexHighlightColor = Color.Pink;
 		public Color HexHighlightFreezeColor = Color.Violet;
@@ -509,6 +509,7 @@ namespace BizHawk.Client.Common
 
 		// TAStudio
 		public TasStateManagerSettings DefaultTasProjSettings = new TasStateManagerSettings();
+		public int TasStudioRenderer = 0; // defaults to 0 (GDI) - on Unix this is forced to GDI+ later on
 
 		// Macro Tool
 		public RecentFiles RecentMacros = new RecentFiles(8);
