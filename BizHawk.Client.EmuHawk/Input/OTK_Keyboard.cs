@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.Text;
+
+using JetBrains.Annotations;
+
 using OpenTK.Input;
 
 namespace BizHawk.Client.EmuHawk
 {
 	public static class OTK_Keyboard
 	{
-		private static readonly Dictionary<Key, SlimDX.DirectInput.Key> KeyEnumMap = new Dictionary<Key, SlimDX.DirectInput.Key>
+		[NotNull] private static readonly Dictionary<Key, SlimDX.DirectInput.Key> KeyEnumMap = new Dictionary<Key, SlimDX.DirectInput.Key>
 		{
 			// A-Z
 			{Key.A, SlimDX.DirectInput.Key.A}, {Key.B, SlimDX.DirectInput.Key.B}, {Key.C, SlimDX.DirectInput.Key.C}, {Key.D, SlimDX.DirectInput.Key.D}, {Key.E, SlimDX.DirectInput.Key.E}, {Key.F, SlimDX.DirectInput.Key.F}, {Key.G, SlimDX.DirectInput.Key.G}, {Key.H, SlimDX.DirectInput.Key.H}, {Key.I, SlimDX.DirectInput.Key.I}, {Key.J, SlimDX.DirectInput.Key.J}, {Key.K, SlimDX.DirectInput.Key.K}, {Key.L, SlimDX.DirectInput.Key.L}, {Key.M, SlimDX.DirectInput.Key.M}, {Key.N, SlimDX.DirectInput.Key.N}, {Key.O, SlimDX.DirectInput.Key.O}, {Key.P, SlimDX.DirectInput.Key.P}, {Key.Q, SlimDX.DirectInput.Key.Q}, {Key.R, SlimDX.DirectInput.Key.R}, {Key.S, SlimDX.DirectInput.Key.S}, {Key.T, SlimDX.DirectInput.Key.T}, {Key.U, SlimDX.DirectInput.Key.U}, {Key.V, SlimDX.DirectInput.Key.V}, {Key.W, SlimDX.DirectInput.Key.W}, {Key.X, SlimDX.DirectInput.Key.X}, {Key.Y, SlimDX.DirectInput.Key.Y}, {Key.Z, SlimDX.DirectInput.Key.Z},
@@ -25,7 +28,7 @@ namespace BizHawk.Client.EmuHawk
 			{Key.Keypad0, SlimDX.DirectInput.Key.NumberPad0}, {Key.Keypad1, SlimDX.DirectInput.Key.NumberPad1}, {Key.Keypad2, SlimDX.DirectInput.Key.NumberPad2}, {Key.Keypad3, SlimDX.DirectInput.Key.NumberPad3}, {Key.Keypad4, SlimDX.DirectInput.Key.NumberPad4}, {Key.Keypad5, SlimDX.DirectInput.Key.NumberPad5}, {Key.Keypad6, SlimDX.DirectInput.Key.NumberPad6}, {Key.Keypad7, SlimDX.DirectInput.Key.NumberPad7}, {Key.Keypad8, SlimDX.DirectInput.Key.NumberPad8}, {Key.Keypad9, SlimDX.DirectInput.Key.NumberPad9}, {Key.KeypadAdd, SlimDX.DirectInput.Key.NumberPadPlus}, {Key.KeypadDecimal, SlimDX.DirectInput.Key.NumberPadPeriod}, {Key.KeypadDivide, SlimDX.DirectInput.Key.NumberPadSlash}, {Key.KeypadEnter, SlimDX.DirectInput.Key.NumberPadEnter}, {Key.KeypadMultiply, SlimDX.DirectInput.Key.NumberPadStar}, {Key.KeypadSubtract, SlimDX.DirectInput.Key.NumberPadMinus}
 		};
 
-		private static readonly List<KeyInput.KeyEvent> _eventList = new List<KeyInput.KeyEvent>();
+		[NotNull] private static readonly List<KeyInput.KeyEvent> _eventList = new List<KeyInput.KeyEvent>();
 		private static KeyboardState _kbState;
 
 		public static void Initialize ()

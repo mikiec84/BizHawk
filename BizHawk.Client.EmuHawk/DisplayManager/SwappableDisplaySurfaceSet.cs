@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 using BizHawk.Common;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <summary>
@@ -17,7 +19,7 @@ namespace BizHawk.Client.EmuHawk
 	{
 		DisplaySurface Pending, Current;
 		bool IsPending;
-		Queue<DisplaySurface> ReleasedSurfaces = new Queue<DisplaySurface>();
+		[NotNull] Queue<DisplaySurface> ReleasedSurfaces = new Queue<DisplaySurface>();
 
 		/// <summary>
 		/// retrieves a surface with the specified size, reusing an old buffer if available and clearing if requested

@@ -8,6 +8,8 @@ using BizHawk.Emulation.Common;
 using BizHawk.Common.NumberExtensions;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class TAStudio
@@ -41,7 +43,7 @@ namespace BizHawk.Client.EmuHawk
 
 		public bool FloatEditingMode => _floatEditRow != -1;
 
-		private readonly List<int> _extraFloatRows = new List<int>();
+		[NotNull] private readonly List<int> _extraFloatRows = new List<int>();
 
 		// Right-click dragging
 		private string[] _rightClickInput = null;

@@ -17,6 +17,8 @@ using BizHawk.Emulation.Common;
 
 using ICSharpCode.SharpZipLib.Zip;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class PCESoundDebugger : Form, IToolFormAutoConfig
@@ -33,7 +35,7 @@ namespace BizHawk.Client.EmuHawk
 			SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 		}
 
-		byte[] waveformTemp = new byte[32 * 2];
+		[NotNull] byte[] waveformTemp = new byte[32 * 2];
 
 		protected override void OnShown(EventArgs e)
 		{
@@ -161,9 +163,9 @@ namespace BizHawk.Client.EmuHawk
 			public short[] waveform;
 		}
 
-		PSGEntry[] LastSamples = new PSGEntry[8];
-		List<PSGEntry> PSGEntries = new List<PSGEntry>();
-		Dictionary<string, PSGEntry> PSGEntryTable = new Dictionary<string, PSGEntry>();
+		[NotNull] PSGEntry[] LastSamples = new PSGEntry[8];
+		[NotNull] List<PSGEntry> PSGEntries = new List<PSGEntry>();
+		[NotNull] Dictionary<string, PSGEntry> PSGEntryTable = new Dictionary<string, PSGEntry>();
 
 		public void Restart()
 		{

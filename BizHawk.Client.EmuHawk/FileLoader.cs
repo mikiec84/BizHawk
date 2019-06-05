@@ -9,6 +9,8 @@ using BizHawk.Emulation.Common.IEmulatorExtensions;
 using BizHawk.Emulation.Cores.PCEngine;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	partial class MainForm
@@ -66,7 +68,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private readonly string[] _nonArchive = { ".ISO", ".CUE", ".CCD" };
+		[NotNull] private readonly string[] _nonArchive = { ".ISO", ".CUE", ".CCD" };
 
 		#region Loaders
 

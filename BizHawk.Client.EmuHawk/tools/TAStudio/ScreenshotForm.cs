@@ -3,6 +3,8 @@ using System.Windows.Forms;
 
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 // We pretend it's a tooltip kind of thing, so show only the actual contents
 // and avoid stealing forcus, while still being topmost
 // http://stackoverflow.com/a/25219399/2792852
@@ -16,8 +18,8 @@ namespace BizHawk.Client.EmuHawk
 		private const int Interval = 40;
 		private const double AlphaStep = 0.125;
 
-		private readonly Timer _showTimer = new Timer();
-		private readonly Timer _hideTimer = new Timer();
+		[NotNull] private readonly Timer _showTimer = new Timer();
+		[NotNull] private readonly Timer _hideTimer = new Timer();
 
 		private TasBranch _branch;
 		private int _drawingHeight;

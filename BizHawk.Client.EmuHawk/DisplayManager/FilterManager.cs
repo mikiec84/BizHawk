@@ -12,6 +12,8 @@ using BizHawk.Client.EmuHawk.Filters;
 using BizHawk.Bizware.BizwareGL;
 using BizHawk.Bizware.BizwareGL.Drivers.OpenTK;
 
+using JetBrains.Annotations;
+
 using OpenTK;
 using OpenTK.Graphics;
 
@@ -48,7 +50,7 @@ namespace BizHawk.Client.EmuHawk.FilterManager
 	public class FilterProgram
 	{
 		public List<BaseFilter> Filters = new List<BaseFilter>();
-		Dictionary<string, BaseFilter> FilterNameIndex = new Dictionary<string, BaseFilter>();
+		[NotNull] Dictionary<string, BaseFilter> FilterNameIndex = new Dictionary<string, BaseFilter>();
 		public List<ProgramStep> Program = new List<ProgramStep>();
 
 		public BaseFilter this[string name]

@@ -7,7 +7,7 @@ using BizHawk.Emulation.Common;
 using BizHawk.Emulation.Common.IEmulatorExtensions;
 using BizHawk.Client.Common;
 
-
+using JetBrains.Annotations;
 
 namespace BizHawk.Client.EmuHawk
 {
@@ -27,14 +27,14 @@ namespace BizHawk.Client.EmuHawk
 		public delegate void ProgressEventHandler(object sender, ProgressEventArgs e);
 		public event ProgressEventHandler OnProgress;
 
-		List<string> files;
-		RomLoader ldr;
-		CoreComm Comm;
+		[NotNull] List<string> files;
+		[NotNull] RomLoader ldr;
+		[NotNull] CoreComm Comm;
 		int numframes = 0;
 		int multiindex = 0;
 		bool multihasnext = false;
 
-		List<Result> Results = new List<Result>();
+		[NotNull] List<Result> Results = new List<Result>();
 		Result current;
 
 		public class Result

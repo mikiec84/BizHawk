@@ -5,13 +5,15 @@ using BizHawk.Emulation.Common;
 using BizHawk.Client.Common;
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class DisplayConfigLite : Form
 	{
 		public bool NeedReset;
 
-		string PathSelection;
+		[NotNull] string PathSelection;
 		
 		public DisplayConfigLite()
 		{

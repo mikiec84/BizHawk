@@ -8,6 +8,8 @@ using SlimDX.XAudio2;
 
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public class XAudio2SoundOutput : ISoundOutput
@@ -128,8 +130,8 @@ namespace BizHawk.Client.EmuHawk
 
 		private class BufferPool : IDisposable
 		{
-			private List<BufferPoolItem> _availableItems = new List<BufferPoolItem>();
-			private Queue<BufferPoolItem> _obtainedItems = new Queue<BufferPoolItem>();
+			[NotNull] private List<BufferPoolItem> _availableItems = new List<BufferPoolItem>();
+			[NotNull] private Queue<BufferPoolItem> _obtainedItems = new Queue<BufferPoolItem>();
 
 			public void Dispose()
 			{

@@ -10,6 +10,8 @@ using BizHawk.Client.Common;
 using BizHawk.Client.Common.InputAdapterExtensions;
 using BizHawk.Bizware.BizwareGL;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <summary>
@@ -127,8 +129,8 @@ namespace BizHawk.Client.EmuHawk
 			return Global.Emulator.Frame.ToString();
 		}
 
-		private List<UIMessage> messages = new List<UIMessage>(5);
-		private List<UIDisplay> GUITextList = new List<UIDisplay>();
+		[NotNull] private List<UIMessage> messages = new List<UIMessage>(5);
+		[NotNull] private List<UIDisplay> GUITextList = new List<UIDisplay>();
 
 		public void AddMessage(string message)
 		{

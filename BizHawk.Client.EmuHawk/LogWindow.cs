@@ -10,6 +10,8 @@ using BizHawk.Emulation.Common;
 using BizHawk.Emulation.Common.IEmulatorExtensions;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 //todo - perks - pause, copy to clipboard, backlog length limiting
 
 namespace BizHawk.Client.EmuHawk
@@ -18,7 +20,7 @@ namespace BizHawk.Client.EmuHawk
 	{
 		//TODO: only show add to game db when this is a Rom details dialog
 		//Let user decide what type (instead of always adding it as a good dump)
-		private readonly List<string> Lines = new List<string>();
+		[NotNull] private readonly List<string> Lines = new List<string>();
 
 		public LogWindow()
 		{

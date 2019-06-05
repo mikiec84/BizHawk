@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class GenericDebugger
 	{
-		private readonly List<DisasmOp> _disassemblyLines = new List<DisasmOp>();
+		[NotNull] private readonly List<DisasmOp> _disassemblyLines = new List<DisasmOp>();
 		private int _pcRegisterSize = 4;
 		private uint _currentDisassemblerAddress;
 

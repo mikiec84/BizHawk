@@ -6,6 +6,8 @@ using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
 using BizHawk.Emulation.Common.IEmulatorExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	// This is intended to be a buffer between a synchronous sound provider and the
@@ -32,20 +34,20 @@ namespace BizHawk.Client.EmuHawk
 		private const int BaseSampleRateMaxHistoryLength = 300;
 		private const int MinResamplingDistanceSamples = 3;
 
-		private Queue<short> _buffer = new Queue<short>();
+		[NotNull] private Queue<short> _buffer = new Queue<short>();
 		private bool _standaloneMode;
 		private int _targetExtraSamples;
 		private int _maxSamplesDeficit;
 
-		private Queue<int> _extraCountHistory = new Queue<int>();
-		private Queue<int> _outputCountHistory = new Queue<int>();
-		private Queue<bool> _hardCorrectionHistory = new Queue<bool>();
+		[NotNull] private Queue<int> _extraCountHistory = new Queue<int>();
+		[NotNull] private Queue<int> _outputCountHistory = new Queue<int>();
+		[NotNull] private Queue<bool> _hardCorrectionHistory = new Queue<bool>();
 
 		private int _baseConsecutiveEmptyFrames;
-		private Queue<bool> _baseEmptyFrameCorrectionHistory = new Queue<bool>();
+		[NotNull] private Queue<bool> _baseEmptyFrameCorrectionHistory = new Queue<bool>();
 
 		private double _lastAdvertisedSamplesPerFrame;
-		private Queue<int> _baseSamplesPerFrame = new Queue<int>();
+		[NotNull] private Queue<int> _baseSamplesPerFrame = new Queue<int>();
 
 		private short[] _outputBuffer = new short[0];
 

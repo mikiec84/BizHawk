@@ -8,11 +8,13 @@ using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class LuaFunctionsForm : Form
 	{
-		private readonly Sorting _columnSort = new Sorting();
+		[NotNull] private readonly Sorting _columnSort = new Sorting();
 
 		private List<LibraryFunction> FunctionList = new List<LibraryFunction>();
 

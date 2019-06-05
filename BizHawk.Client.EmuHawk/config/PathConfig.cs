@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class PathConfig : Form
@@ -29,7 +31,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private static AutoCompleteStringCollection AutoCompleteOptions => new AutoCompleteStringCollection
+		[NotNull] private static AutoCompleteStringCollection AutoCompleteOptions => new AutoCompleteStringCollection
 		{
 			"%recent%",
 			"%exe%",
@@ -249,7 +251,7 @@ namespace BizHawk.Client.EmuHawk
 				.ForEach(control => control.Enabled = !RecentForROMs.Checked);
 		}
 
-		private IEnumerable<TextBox> AllPathBoxes
+		[NotNull] private IEnumerable<TextBox> AllPathBoxes
 		{
 			get
 			{
@@ -263,7 +265,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private IEnumerable<Control> AllPathControls
+		[NotNull] private IEnumerable<Control> AllPathControls
 		{
 			get
 			{

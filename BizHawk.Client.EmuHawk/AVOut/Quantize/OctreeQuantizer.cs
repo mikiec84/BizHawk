@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
     /// <summary>
@@ -291,7 +293,7 @@ namespace BizHawk.Client.EmuHawk
             /// <summary>
             /// Mask used when getting the appropriate pixels for a given node
             /// </summary>
-            private static int[] mask = new int[8] { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
+            [NotNull] private static int[] mask = new int[8] { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
 
             /// <summary>
             /// The root of the octree

@@ -4,14 +4,16 @@ using System.Windows.Forms;
 
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class PatternsForm : Form
 	{
 		private readonly TAStudio _tastudio;
 
-		private readonly List<int> _counts = new List<int>();
-		private readonly List<string> _values = new List<string>();
+		[NotNull] private readonly List<int> _counts = new List<int>();
+		[NotNull] private readonly List<string> _values = new List<string>();
 		private int _loopAt;
 		private bool _updating;
 

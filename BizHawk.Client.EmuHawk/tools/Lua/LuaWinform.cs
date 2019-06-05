@@ -6,13 +6,15 @@ using NLua;
 
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class LuaWinform : Form
 	{
 		public List<LuaEvent> ControlEvents { get; } = new List<LuaEvent>();
 
-		private readonly string _currentDirectory = Environment.CurrentDirectory;
+		[NotNull] private readonly string _currentDirectory = Environment.CurrentDirectory;
 		private readonly Lua _ownerThread;
 
 		public LuaWinform(Lua ownerThread)

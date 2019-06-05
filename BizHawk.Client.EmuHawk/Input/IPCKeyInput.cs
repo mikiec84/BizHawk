@@ -3,6 +3,9 @@ using System.IO;
 using System;
 using System.Threading;
 using System.IO.Pipes;
+
+using JetBrains.Annotations;
+
 using SlimDX;
 using SlimDX.DirectInput;
 
@@ -20,8 +23,8 @@ namespace BizHawk.Client.EmuHawk
 		}
 
 
-		static List<KeyInput.KeyEvent> PendingEventList = new List<KeyInput.KeyEvent>();
-		static List<KeyInput.KeyEvent> EventList = new List<KeyInput.KeyEvent>();
+		[NotNull] static List<KeyInput.KeyEvent> PendingEventList = new List<KeyInput.KeyEvent>();
+		[NotNull] static List<KeyInput.KeyEvent> EventList = new List<KeyInput.KeyEvent>();
 
 		static void IPCThread()
 		{

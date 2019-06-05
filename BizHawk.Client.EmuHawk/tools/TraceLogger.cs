@@ -10,6 +10,8 @@ using BizHawk.Emulation.Common;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class TraceLogger : Form, IToolFormAutoConfig
@@ -47,11 +49,11 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private List<TraceInfo> _instructions = new List<TraceInfo>();
+		[NotNull] private List<TraceInfo> _instructions = new List<TraceInfo>();
 		private StreamWriter _streamWriter;
 		private bool _splitFile;
 		private string _baseName;
-		private string _extension = ".log";
+		[NotNull] private string _extension = ".log";
 		private int _segmentCount;
 		private ulong _currentSize;
 

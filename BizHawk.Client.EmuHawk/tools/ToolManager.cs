@@ -15,6 +15,8 @@ using BizHawk.Common;
 using BizHawk.Common.ReflectionExtensions;
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public class ToolManager
@@ -24,7 +26,7 @@ namespace BizHawk.Client.EmuHawk
 		// TODO: merge ToolHelper code where logical
 		// For instance, add an IToolForm property called UsesCheats, so that a UpdateCheatRelatedTools() method can update all tools of this type
 		// Also a UsesRam, and similar method
-		private readonly List<IToolForm> _tools = new List<IToolForm>();
+		[NotNull] private readonly List<IToolForm> _tools = new List<IToolForm>();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ToolManager"/> class.
@@ -793,7 +795,7 @@ namespace BizHawk.Client.EmuHawk
 		// Note: Referencing these properties creates an instance of the tool and persists it.  They should be referenced by type if this is not desired
 		#region Tools
 
-		public RamWatch RamWatch
+		[NotNull] public RamWatch RamWatch
 		{
 			get
 			{
@@ -816,7 +818,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		public RamSearch RamSearch
+		[NotNull] public RamSearch RamSearch
 		{
 			get
 			{
@@ -839,7 +841,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		public Cheats Cheats
+		[NotNull] public Cheats Cheats
 		{
 			get
 			{
@@ -862,7 +864,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		public HexEditor HexEditor
+		[NotNull] public HexEditor HexEditor
 		{
 			get
 			{
@@ -885,7 +887,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		public VirtualpadTool VirtualPad
+		[NotNull] public VirtualpadTool VirtualPad
 		{
 			get
 			{
@@ -908,7 +910,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		public SNESGraphicsDebugger SNESGraphicsDebugger
+		[NotNull] public SNESGraphicsDebugger SNESGraphicsDebugger
 		{
 			get
 			{
@@ -931,7 +933,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		public LuaConsole LuaConsole
+		[NotNull] public LuaConsole LuaConsole
 		{
 			get
 			{
@@ -954,7 +956,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		public TAStudio TAStudio
+		[NotNull] public TAStudio TAStudio
 		{
 			get
 			{

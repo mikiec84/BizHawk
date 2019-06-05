@@ -1,6 +1,8 @@
 ﻿using BizHawk.Bizware.BizwareGL;
 using BizHawk.Client.ApiHawk;
 
+using JetBrains.Annotations;
+
 // ReSharper disable StyleCop.SA1401
 namespace BizHawk.Client.EmuHawk
 {
@@ -21,7 +23,7 @@ namespace BizHawk.Client.EmuHawk
 		public static Bizware.BizwareGL.Drivers.OpenTK.IGL_TK IGL_GL;
 
 		public static Sound Sound;
-		public static readonly OSDManager OSD = new OSDManager();
+		[NotNull] public static readonly OSDManager OSD = new OSDManager();
 		public static DisplayManager DisplayManager;
 		public static GLManager GLManager;
 

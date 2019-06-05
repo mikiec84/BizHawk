@@ -2,13 +2,15 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.Common
 {
 	public static class UIHelper
 	{
-		private static readonly AutoScaleMode _autoScaleMode = AutoScaleMode.Font;
-		private static readonly SizeF _autoScaleBaseSize = new SizeF(6F, 13F);
-		private static readonly SizeF _autoScaleCurrentSize = GetCurrentAutoScaleSize(_autoScaleMode);
+		[NotNull] private static readonly AutoScaleMode _autoScaleMode = AutoScaleMode.Font;
+		[NotNull] private static readonly SizeF _autoScaleBaseSize = new SizeF(6F, 13F);
+		[NotNull] private static readonly SizeF _autoScaleCurrentSize = GetCurrentAutoScaleSize(_autoScaleMode);
 
 		private static SizeF GetCurrentAutoScaleSize(AutoScaleMode autoScaleMode)
 		{

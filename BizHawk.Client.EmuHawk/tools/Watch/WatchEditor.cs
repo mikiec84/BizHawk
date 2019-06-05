@@ -5,6 +5,9 @@ using System.Linq;
 using System.Windows.Forms;
 
 using BizHawk.Client.Common;
+
+using JetBrains.Annotations;
+
 using Emu = BizHawk.Emulation.Common;
 
 namespace BizHawk.Client.EmuHawk
@@ -13,7 +16,7 @@ namespace BizHawk.Client.EmuHawk
 	{
 		public enum Mode { New, Duplicate, Edit };
 
-		private readonly List<Watch> _watchList = new List<Watch>();
+		[NotNull] private readonly List<Watch> _watchList = new List<Watch>();
 
 		public Emu.IMemoryDomains MemoryDomains { get; set; }
 
@@ -24,7 +27,7 @@ namespace BizHawk.Client.EmuHawk
 		private bool _changedDisplayType;
 
 		public Mode EditorMode { get { return _mode; } }
-		public List<Watch> Watches { get { return _watchList; } }
+		[NotNull] public List<Watch> Watches { get { return _watchList; } }
 		public Point InitialLocation = new Point(0, 0);
 
 		public WatchEditor()

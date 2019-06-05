@@ -8,6 +8,8 @@ using BizHawk.Emulation.Common;
 using BizHawk.Emulation.Cores.Nintendo.SNES;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	[Tool(false, null)]
@@ -22,7 +24,7 @@ namespace BizHawk.Client.EmuHawk
 		// including transposition
 		// Code: D F 4 7 0 9 1 5 6 B C 8 A 2 3 E
 		// Hex:  0 1 2 3 4 5 6 7 8 9 A B C D E F
-		private readonly Dictionary<char, int> _gameGenieTable = new Dictionary<char, int>
+		[NotNull] private readonly Dictionary<char, int> _gameGenieTable = new Dictionary<char, int>
 		{
 			{ 'D', 0 },  // 0000
 			{ 'F', 1 },  // 0001

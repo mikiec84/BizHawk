@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+
+using JetBrains.Annotations;
+
 using SlimDX.XInput;
 
 #pragma warning disable 169
@@ -12,8 +15,8 @@ namespace BizHawk.Client.EmuHawk
 	{
 		// ********************************** Static interface **********************************
 
-		private static readonly object _syncObj = new object();
-		private static readonly List<GamePad360> _devices = new List<GamePad360>();
+		[NotNull] private static readonly object _syncObj = new object();
+		[NotNull] private static readonly List<GamePad360> _devices = new List<GamePad360>();
 		private static readonly bool _isAvailable;
 
 		[DllImport("kernel32", SetLastError = true, EntryPoint = "GetProcAddress")]
@@ -186,8 +189,8 @@ namespace BizHawk.Client.EmuHawk
 
 		public int NumButtons { get; private set; }
 
-		private readonly List<string> names = new List<string>();
-		private readonly List<Func<bool>> actions = new List<Func<bool>>();
+		[NotNull] private readonly List<string> names = new List<string>();
+		[NotNull] private readonly List<Func<bool>> actions = new List<Func<bool>>();
 
 		void InitializeButtons()
 		{

@@ -9,6 +9,8 @@ using BizHawk.Client.Common;
 using NLua;
 using System.IO;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	[Description("A library for creating and managing custom dialogs")]
@@ -25,7 +27,7 @@ namespace BizHawk.Client.EmuHawk
 
 		#region Forms Library Helpers
 
-		private readonly List<LuaWinform> _luaForms = new List<LuaWinform>();
+		[NotNull] private readonly List<LuaWinform> _luaForms = new List<LuaWinform>();
 
 		public void WindowClosed(IntPtr handle)
 		{

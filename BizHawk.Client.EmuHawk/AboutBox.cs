@@ -3,12 +3,14 @@ using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class AboutBox : Form
 	{
 		private readonly SoundPlayer sfx;
-		private readonly Random r = new Random();
+		[NotNull] private readonly Random r = new Random();
 		private int ctr;
 		private Point loc;
 
@@ -151,7 +153,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private readonly int[] DigitTable ={
+		[NotNull] private readonly int[] DigitTable ={
 			0,3,6,9,12,
 			14,15,15,16,16,16,15,15,14,12,
 			9,6,3,0,2,4,4,5,5,5,

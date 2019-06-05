@@ -5,14 +5,16 @@ using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class VirtualPadTargetScreen : UserControl, IVirtualPadControl
 	{
-		private readonly Pen BlackPen = new Pen(Brushes.Black, 2);
-		private readonly Pen WhitePen = new Pen(Brushes.White, 2);
-		private readonly Pen GrayPen = new Pen(Brushes.Gray, 2);
-		private readonly Pen RedPen = new Pen(Brushes.Red, 2);
+		[NotNull] private readonly Pen BlackPen = new Pen(Brushes.Black, 2);
+		[NotNull] private readonly Pen WhitePen = new Pen(Brushes.White, 2);
+		[NotNull] private readonly Pen GrayPen = new Pen(Brushes.Gray, 2);
+		[NotNull] private readonly Pen RedPen = new Pen(Brushes.Red, 2);
 
 		private bool _isProgrammicallyChangingNumerics;
 		private bool _isDragging;

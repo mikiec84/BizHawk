@@ -37,6 +37,8 @@ using BizHawk.Emulation.Cores.Consoles.SNK;
 using BizHawk.Emulation.Cores.Consoles.Sega.PicoDrive;
 using BizHawk.Emulation.Cores.Consoles.Nintendo.Gameboy;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class MainForm : Form
@@ -1356,7 +1358,7 @@ namespace BizHawk.Client.EmuHawk
 		#region Private variables
 
 		private Size _lastVideoSize = new Size(-1, -1), _lastVirtualSize = new Size(-1, -1);
-		private readonly SaveSlotManager _stateSlots = new SaveSlotManager();
+		[NotNull] private readonly SaveSlotManager _stateSlots = new SaveSlotManager();
 
 		// AVI/WAV state
 		private IVideoWriter _currAviWriter;
@@ -1404,7 +1406,7 @@ namespace BizHawk.Client.EmuHawk
 
 		private int _lastOpenRomFilter;
 
-		private ArgParser argParser = new ArgParser();
+		[NotNull] private ArgParser argParser = new ArgParser();
 
 		// Resources
 		private Bitmap _statusBarDiskLightOnImage;
@@ -1415,7 +1417,7 @@ namespace BizHawk.Client.EmuHawk
 		// input state which has been destined for game controller inputs are coalesced here
 		// public static ControllerInputCoalescer ControllerInputCoalescer = new ControllerInputCoalescer();
 		// input state which has been destined for client hotkey consumption are colesced here
-		private readonly InputCoalescer _hotkeyCoalescer = new InputCoalescer();
+		[NotNull] private readonly InputCoalescer _hotkeyCoalescer = new InputCoalescer();
 
 		public PresentationPanel PresentationPanel { get; }
 

@@ -7,17 +7,19 @@ using System.Windows.Forms;
 
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public sealed class InputWidget : TextBox
 	{
 		// TODO: when binding, make sure that the new key combo is not in one of the other bindings
-		private readonly Timer _timer = new Timer();
-		private readonly List<string> _bindings = new List<string>();
+		[NotNull] private readonly Timer _timer = new Timer();
+		[NotNull] private readonly List<string> _bindings = new List<string>();
 	
 		private string _wasPressed = "";
 
-		public InputCompositeWidget CompositeWidget { get; set; }
+		[NotNull] public InputCompositeWidget CompositeWidget { get; set; }
 
 		public class SpecialBindingInfo
 		{
@@ -28,7 +30,7 @@ namespace BizHawk.Client.EmuHawk
 		/// <summary>
 		/// These bindings get ignored by the widget and can only be entered by SetBinding() via the context menu from the InputCompositeWidget
 		/// </summary>
-		public static readonly SpecialBindingInfo[] SpecialBindings =
+		[NotNull] public static readonly SpecialBindingInfo[] SpecialBindings =
 		{
 			new SpecialBindingInfo { BindingName = "Escape", TooltipText = "Binds the Escape key" },
 			new SpecialBindingInfo { BindingName = "WMouse L", TooltipText = "Binds the left mouse button" },
@@ -50,7 +52,7 @@ namespace BizHawk.Client.EmuHawk
 		public bool AutoTab { get; set; }
 		public string WidgetName { get; set; }
 
-		public string Bindings
+		[NotNull] public string Bindings
 		{
 			get
 			{

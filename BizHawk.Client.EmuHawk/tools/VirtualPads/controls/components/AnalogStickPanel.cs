@@ -7,6 +7,8 @@ using BizHawk.Common;
 using BizHawk.Common.NumberExtensions;
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public sealed class AnalogStickPanel : Panel
@@ -73,10 +75,10 @@ namespace BizHawk.Client.EmuHawk
 			Rerange();
 		}
 
-		private readonly MutableIntRange RangeX = new MutableIntRange(-128, 127);
-		private readonly MutableIntRange RangeY = new MutableIntRange(-128, 127);
-		private readonly MutableIntRange ActualRangeX = new MutableIntRange(-128, 127);
-		private readonly MutableIntRange ActualRangeY = new MutableIntRange(-128, 127);
+		[NotNull] private readonly MutableIntRange RangeX = new MutableIntRange(-128, 127);
+		[NotNull] private readonly MutableIntRange RangeY = new MutableIntRange(-128, 127);
+		[NotNull] private readonly MutableIntRange ActualRangeX = new MutableIntRange(-128, 127);
+		[NotNull] private readonly MutableIntRange ActualRangeY = new MutableIntRange(-128, 127);
 
 		private bool ReverseX;
 		private bool ReverseY;
@@ -136,12 +138,12 @@ namespace BizHawk.Client.EmuHawk
 		private int GfxToRealY(int val) =>
 			MaybeReversedInY(RangeY.Constrain(RangeY.Min + ((val - PixelMinY) / ScaleY).RoundToInt()));
 
-		private readonly Pen BlackPen = new Pen(Brushes.Black);
-		private readonly Pen BluePen = new Pen(Brushes.Blue, 2);
-		private readonly Pen GrayPen = new Pen(Brushes.Gray, 2);
+		[NotNull] private readonly Pen BlackPen = new Pen(Brushes.Black);
+		[NotNull] private readonly Pen BluePen = new Pen(Brushes.Blue, 2);
+		[NotNull] private readonly Pen GrayPen = new Pen(Brushes.Gray, 2);
 
-		private readonly Bitmap Dot = new Bitmap(7, 7);
-		private readonly Bitmap GrayDot = new Bitmap(7, 7);
+		[NotNull] private readonly Bitmap Dot = new Bitmap(7, 7);
+		[NotNull] private readonly Bitmap GrayDot = new Bitmap(7, 7);
 
 		public Action ClearCallback { private get; set; }
 

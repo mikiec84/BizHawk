@@ -13,6 +13,8 @@ using BizHawk.Client.Common;
 using BizHawk.Emulation.Common.IEmulatorExtensions;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 
@@ -21,10 +23,10 @@ namespace BizHawk.Client.EmuHawk
 
 		public class HttpCommunication
 		{
-			private static HttpClient client = new HttpClient();
+			[NotNull] private static HttpClient client = new HttpClient(); //TODO check ref with attr usages
 			public string PostUrl { get; set; } = null;
 			public string GetUrl { get; set; } = null;
-			private ScreenShot screenShot = new ScreenShot();
+			[NotNull] private ScreenShot screenShot = new ScreenShot();
 			public int timeout = 0;
 			public int default_timeout = 500;
 			
@@ -405,7 +407,7 @@ namespace BizHawk.Client.EmuHawk
 		//makes all functionalities for providing screenshots available
 		{
 			private IVideoProvider currentVideoProvider = null;
-			private ImageConverter converter = new ImageConverter();
+			[NotNull] private ImageConverter converter = new ImageConverter();
 
 			public BitmapBuffer MakeScreenShotImage()
 			{

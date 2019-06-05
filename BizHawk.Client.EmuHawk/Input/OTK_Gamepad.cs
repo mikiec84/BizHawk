@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+
+using JetBrains.Annotations;
+
 using OpenTK.Input;
 
 namespace BizHawk.Client.EmuHawk
@@ -91,8 +94,8 @@ namespace BizHawk.Client.EmuHawk
 		}
 		public int NumButtons { get; private set; }
 
-		private readonly List<string> names = new List<string>();
-		private readonly List<Func<bool>> actions = new List<Func<bool>>();
+		[NotNull] private readonly List<string> names = new List<string>();
+		[NotNull] private readonly List<Func<bool>> actions = new List<Func<bool>>();
 
 		void AddItem(string _name, Func<bool> callback)
 		{

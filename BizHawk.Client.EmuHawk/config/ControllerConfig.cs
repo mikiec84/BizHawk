@@ -10,12 +10,14 @@ using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class ControllerConfig : Form
 	{
 		private const int MaxPlayers = 12;
-		private static readonly Dictionary<string, Bitmap> ControllerImages = new Dictionary<string, Bitmap>();
+		[NotNull] private static readonly Dictionary<string, Bitmap> ControllerImages = new Dictionary<string, Bitmap>();
 		private readonly ControllerDefinition _theDefinition;
 
 		static ControllerConfig()

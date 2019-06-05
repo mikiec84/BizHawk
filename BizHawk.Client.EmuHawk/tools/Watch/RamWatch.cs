@@ -14,11 +14,13 @@ using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 using BizHawk.Client.EmuHawk.ToolExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class RamWatch : ToolFormBase, IToolForm
 	{
-		private WatchList _watches;
+		[NotNull] private WatchList _watches;
 
 		private int _defaultWidth;
 		private int _defaultHeight;
@@ -59,7 +61,7 @@ namespace BizHawk.Client.EmuHawk
 			_sortReverse = false;
 		}
 
-		[ConfigPersist]
+		[ConfigPersist, NotNull]
 		public RamWatchSettings Settings { get; set; }
 
 		public class RamWatchSettings : ToolDialogSettings
@@ -82,19 +84,19 @@ namespace BizHawk.Client.EmuHawk
 			public ColumnList Columns { get; set; }
 		}
 
-		private IEnumerable<int> SelectedIndices => WatchListView.SelectedIndices.Cast<int>();
+		[NotNull] private IEnumerable<int> SelectedIndices => WatchListView.SelectedIndices.Cast<int>();
 
-		private IEnumerable<Watch> SelectedItems
+		[NotNull] private IEnumerable<Watch> SelectedItems
 		{
 			get { return SelectedIndices.Select(index => _watches[index]); }
 		}
 
-		private IEnumerable<Watch> SelectedWatches
+		[NotNull] private IEnumerable<Watch> SelectedWatches
 		{
 			get { return SelectedItems.Where(x => !x.IsSeparator); }
 		}
 
-        private IEnumerable<Watch> SelectedSeparators
+        [NotNull] private IEnumerable<Watch> SelectedSeparators
         {
             get
             {
@@ -102,7 +104,7 @@ namespace BizHawk.Client.EmuHawk
             }
         }
 
-		public IEnumerable<Watch> Watches
+		[NotNull] public IEnumerable<Watch> Watches
 		{
 			get
 			{

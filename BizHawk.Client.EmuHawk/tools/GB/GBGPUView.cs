@@ -12,6 +12,8 @@ using BizHawk.Emulation.Common;
 using BizHawk.Emulation.Cores.Consoles.Nintendo.Gameboy;
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class GBGPUView : Form, IToolFormAutoConfig
@@ -926,7 +928,7 @@ namespace BizHawk.Client.EmuHawk
 
 		#region copyimage
 
-		private readonly Timer _messagetimer = new Timer();
+		[NotNull] private readonly Timer _messagetimer = new Timer();
 
 		private void GBGPUView_KeyDown(object sender, KeyEventArgs e)
 		{

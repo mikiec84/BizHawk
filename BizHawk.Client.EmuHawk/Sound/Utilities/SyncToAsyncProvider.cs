@@ -2,11 +2,13 @@
 
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public class SyncToAsyncProvider : ISoundProvider
 	{
-		private readonly SoundOutputProvider _outputProvider = new SoundOutputProvider(standaloneMode: true);
+		[NotNull] private readonly SoundOutputProvider _outputProvider = new SoundOutputProvider(standaloneMode: true);
 
 		public SyncToAsyncProvider(ISoundProvider baseProvider)
 		{

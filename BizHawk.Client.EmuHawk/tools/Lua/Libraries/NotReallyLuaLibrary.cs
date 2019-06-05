@@ -3,6 +3,8 @@ using System;
 using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <summary>
@@ -34,7 +36,7 @@ namespace BizHawk.Client.EmuHawk
 		public override void ExecuteString(string command)
 		{
 		}
-		private static readonly LuaFunctionList EmptyLuaFunList = new LuaFunctionList();
+		[NotNull] private static readonly LuaFunctionList EmptyLuaFunList = new LuaFunctionList();
 		public override LuaFunctionList GetRegisteredFunctions()
 		{
 			return EmptyLuaFunList;
@@ -42,7 +44,7 @@ namespace BizHawk.Client.EmuHawk
 		public override void Restart(IEmulatorServiceProvider newServiceProvider)
 		{
 		}
-		private static readonly EmuLuaLibrary.ResumeResult EmptyResumeResult = new EmuLuaLibrary.ResumeResult();
+		[NotNull] private static readonly EmuLuaLibrary.ResumeResult EmptyResumeResult = new EmuLuaLibrary.ResumeResult();
 		public override EmuLuaLibrary.ResumeResult ResumeScriptFromThreadOf(LuaFile lf)
 		{
 			return EmptyResumeResult;

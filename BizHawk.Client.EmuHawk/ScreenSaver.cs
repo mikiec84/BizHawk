@@ -2,6 +2,8 @@
 
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <remarks>Derived from http://www.codeproject.com/KB/cs/ScreenSaverControl.aspx</remarks>
@@ -45,7 +47,7 @@ namespace BizHawk.Client.EmuHawk
 			public int Duration { get; set; } = 0; //TODO implementation
 		}
 
-		private static readonly IScreenBlankTimer _screenBlankTimer = OSTailoredCode.CurrentOS == OSTailoredCode.DistinctOS.Windows
+		[NotNull] private static readonly IScreenBlankTimer _screenBlankTimer = OSTailoredCode.CurrentOS == OSTailoredCode.DistinctOS.Windows
 			? (IScreenBlankTimer) new Win32ScreenBlankTimer()
 			: new UnixScreenBlankTimer();
 

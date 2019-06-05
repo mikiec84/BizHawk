@@ -8,6 +8,8 @@ using BizHawk.Emulation.Cores.Nintendo.NES;
 using BizHawk.Emulation.Common;
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class NesPPU : Form, IToolFormAutoConfig
@@ -17,8 +19,8 @@ namespace BizHawk.Client.EmuHawk
 		// Speedups
 		// Smarter refreshing?  only refresh when things of changed, perhaps peek at the ppu to when the pattern table has changed, or sprites have moved
 		// Maybe 48 individual bitmaps for sprites is faster than the overhead of redrawing all that transparent space
-		private readonly byte[] _ppuBusprev = new byte[0x3000];
-		private readonly byte[] _palRamPrev = new byte[0x20];
+		[NotNull] private readonly byte[] _ppuBusprev = new byte[0x3000];
+		[NotNull] private readonly byte[] _palRamPrev = new byte[0x20];
 
 		int scanline;
 
@@ -799,7 +801,7 @@ namespace BizHawk.Client.EmuHawk
 		#endregion
 
 		MemoryDomain CHRROM;
-		byte[] chrromcache = new byte[8192];
+		[NotNull] byte[] chrromcache = new byte[8192];
 
 		private void cHRROMTileViewerToolStripMenuItem_Click(object sender, EventArgs e)
 		{

@@ -8,6 +8,8 @@ using BizHawk.Emulation.Cores.Nintendo.N64;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class N64VideoPluginconfig : Form
@@ -15,7 +17,7 @@ namespace BizHawk.Client.EmuHawk
 		private N64Settings _s;
 		private N64SyncSettings _ss;
 
-		private static readonly string[] ValidResolutions =
+		[NotNull] private static readonly string[] ValidResolutions =
 		{
 			"320 x 240",
 			"400 x 300",

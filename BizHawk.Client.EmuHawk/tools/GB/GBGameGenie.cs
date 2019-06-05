@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using BizHawk.Emulation.Common;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	[Tool(false, null)]
@@ -19,7 +21,7 @@ namespace BizHawk.Client.EmuHawk
 		[RequiredService]
 		private IMemoryDomains MemoryDomains { get; set; }
 
-		private readonly Dictionary<char, int> _gameGenieTable = new Dictionary<char, int>();
+		[NotNull] private readonly Dictionary<char, int> _gameGenieTable = new Dictionary<char, int>();
 		private bool _processing;
 
 		public bool AskSaveChanges() { return true; }

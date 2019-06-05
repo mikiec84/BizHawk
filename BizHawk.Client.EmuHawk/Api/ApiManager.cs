@@ -8,6 +8,8 @@ using BizHawk.Common.ReflectionExtensions;
 using BizHawk.Emulation.Common;
 using BizHawk.Client.ApiHawk;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 
 {
@@ -42,7 +44,7 @@ namespace BizHawk.Client.EmuHawk
 			container = new ApiContainer(Libraries);
 			GlobalWin.ApiProvider = new BasicApiProvider(container);
 		}
-		private static readonly Dictionary<Type, IExternalApi> Libraries = new Dictionary<Type, IExternalApi>();
+		[NotNull] private static readonly Dictionary<Type, IExternalApi> Libraries = new Dictionary<Type, IExternalApi>();
 		public static void Restart(IEmulatorServiceProvider newServiceProvider)
 		{
 			Libraries.Clear();

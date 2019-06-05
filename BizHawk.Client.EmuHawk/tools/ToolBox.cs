@@ -9,6 +9,8 @@ using BizHawk.Emulation.Common;
 using BizHawk.Client.ApiHawk;
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class ToolBox : Form, IToolForm
@@ -98,7 +100,7 @@ namespace BizHawk.Client.EmuHawk
 		}
 
 		// Provide LINQ capabilities to an outdated form collection
-		private IEnumerable<ToolStripItem> ToolBoxItems
+		[NotNull] private IEnumerable<ToolStripItem> ToolBoxItems
 		{
 			get
 			{

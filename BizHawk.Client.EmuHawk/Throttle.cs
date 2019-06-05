@@ -6,6 +6,8 @@ using System.Threading;
 using BizHawk.Client.Common;
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 //this throttle is nitsuja's fine-tuned techniques from desmume
 
 namespace BizHawk.Client.EmuHawk
@@ -160,7 +162,7 @@ namespace BizHawk.Client.EmuHawk
 				return ms;
 			}
 		}
-		static PlatformSpecificSysTimer sysTimer = OSTailoredCode.CurrentOS == OSTailoredCode.DistinctOS.Windows
+		[NotNull] static PlatformSpecificSysTimer sysTimer = OSTailoredCode.CurrentOS == OSTailoredCode.DistinctOS.Windows
 			? (PlatformSpecificSysTimer) new WinSysTimer()
 			: new UnixMonoSysTimer();
 		static uint TimeBeginPeriod(uint ms)

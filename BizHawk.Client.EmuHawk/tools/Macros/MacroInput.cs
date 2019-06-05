@@ -8,6 +8,8 @@ using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 using BizHawk.Client.EmuHawk.ToolExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	[Tool(false, null)]
@@ -16,8 +18,8 @@ namespace BizHawk.Client.EmuHawk
 		[RequiredService]
 		private IEmulator Emulator { get; set; }
 
-		private readonly List<MovieZone> _zones = new List<MovieZone>();
-		private readonly List<int> _unsavedZones = new List<int>();
+		[NotNull] private readonly List<MovieZone> _zones = new List<MovieZone>();
+		[NotNull] private readonly List<int> _unsavedZones = new List<int>();
 		private bool _selecting = false;
 
 		private IMovie CurrentMovie

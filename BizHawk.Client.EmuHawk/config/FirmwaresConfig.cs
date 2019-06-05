@@ -12,6 +12,8 @@ using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 
+using JetBrains.Annotations;
+
 // notes: eventually, we intend to have a "firmware acquisition interface" exposed to the emulator cores.
 // it will be implemented by emuhawk, and use firmware keys to fetch the firmware content.
 // however, for now, the cores are using strings from the config class. so we have the `configMember` which is 
@@ -30,7 +32,7 @@ namespace BizHawk.Client.EmuHawk
 	{
 		// friendlier names than the system Ids
 		// Redundant with SystemLookup? Not so fast. That datadrives things. This is one step abstracted. Don't be such a smart guy. Keep this redundant list up to date.
-		private static readonly Dictionary<string, string> SystemGroupNames = new Dictionary<string, string>
+		[NotNull] private static readonly Dictionary<string, string> SystemGroupNames = new Dictionary<string, string>
 		{
 			{ "NES", "NES" },
 			{ "SNES", "SNES" },
@@ -59,17 +61,17 @@ namespace BizHawk.Client.EmuHawk
 
 		public string TargetSystem = null;
 
-		private CheckBox cbAllowImport;
+		[NotNull] private CheckBox cbAllowImport;
 
 		private const int idUnsure = 0;
 		private const int idMissing = 1;
 		private const int idOk = 2;
 
-		private Font fixedFont, boldFont, boldFixedFont;
+		[NotNull] private Font fixedFont, boldFont, boldFixedFont;
 
 		private class ListViewSorter : IComparer
 		{
-			public FirmwaresConfig dialog;
+			[NotNull] public FirmwaresConfig dialog;
 			public int column;
 			public int sign;
 			public ListViewSorter(FirmwaresConfig dialog, int column)
@@ -85,8 +87,8 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private string currSelectorDir;
-		private readonly ListViewSorter listviewSorter;
+		[NotNull] private string currSelectorDir;
+		[NotNull] private readonly ListViewSorter listviewSorter;
 
 		public FirmwaresConfig(bool retryLoadRom = false, string reloadRomPath = null)
 		{

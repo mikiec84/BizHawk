@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	// Generates SEMI-synchronous sound, or "buffered asynchronous" sound.
@@ -34,7 +36,7 @@ namespace BizHawk.Client.EmuHawk
 	{
 		public ISoundProvider BaseSoundProvider { get; set; }
 
-		private readonly Queue<short> buffer = new Queue<short>(MaxExcessSamples);
+		[NotNull] private readonly Queue<short> buffer = new Queue<short>(MaxExcessSamples);
 
 		private int SamplesInOneFrame = 1470;
 		private int TargetExtraSamples = 882;

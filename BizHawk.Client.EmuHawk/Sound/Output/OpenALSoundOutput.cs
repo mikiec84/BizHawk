@@ -7,6 +7,8 @@ using OpenTK.Audio.OpenAL;
 
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public class OpenALSoundOutput : ISoundOutput
@@ -129,8 +131,8 @@ namespace BizHawk.Client.EmuHawk
 
 		private class BufferPool : IDisposable
 		{
-			private Stack<BufferPoolItem> _availableItems = new Stack<BufferPoolItem>();
-			private Queue<BufferPoolItem> _obtainedItems = new Queue<BufferPoolItem>();
+			[NotNull] private Stack<BufferPoolItem> _availableItems = new Stack<BufferPoolItem>();
+			[NotNull] private Queue<BufferPoolItem> _obtainedItems = new Queue<BufferPoolItem>();
 
 			public void Dispose()
 			{

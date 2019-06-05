@@ -8,6 +8,8 @@ using SlimDX.DirectInput;
 using BizHawk.Common;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	//coalesces events back into instantaneous states
@@ -82,7 +84,7 @@ namespace BizHawk.Client.EmuHawk
 			if (types.HasFlag(InputFocus.Mouse) && !wants) WantingMouseFocus.Remove(c);
 		}
 
-		HashSet<System.Windows.Forms.Control> WantingMouseFocus = new HashSet<System.Windows.Forms.Control>();
+		[NotNull] HashSet<System.Windows.Forms.Control> WantingMouseFocus = new HashSet<System.Windows.Forms.Control>();
 
 		[Flags]
 		public enum ModifierKey
@@ -202,12 +204,12 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private readonly WorkingDictionary<string, object> ModifierState = new WorkingDictionary<string, object>();
-		private readonly WorkingDictionary<string, bool> LastState = new WorkingDictionary<string, bool>();
-		private readonly WorkingDictionary<string, bool> UnpressState = new WorkingDictionary<string, bool>();
-		private readonly HashSet<string> IgnoreKeys = new HashSet<string>(new[] { "LeftShift", "RightShift", "LeftControl", "RightControl", "LeftAlt", "RightAlt" });
-		private readonly WorkingDictionary<string, float> FloatValues = new WorkingDictionary<string, float>();
-		private readonly WorkingDictionary<string, float> FloatDeltas = new WorkingDictionary<string, float>();
+		[NotNull] private readonly WorkingDictionary<string, object> ModifierState = new WorkingDictionary<string, object>();
+		[NotNull] private readonly WorkingDictionary<string, bool> LastState = new WorkingDictionary<string, bool>();
+		[NotNull] private readonly WorkingDictionary<string, bool> UnpressState = new WorkingDictionary<string, bool>();
+		[NotNull] private readonly HashSet<string> IgnoreKeys = new HashSet<string>(new[] { "LeftShift", "RightShift", "LeftControl", "RightControl", "LeftAlt", "RightAlt" });
+		[NotNull] private readonly WorkingDictionary<string, float> FloatValues = new WorkingDictionary<string, float>();
+		[NotNull] private readonly WorkingDictionary<string, float> FloatDeltas = new WorkingDictionary<string, float>();
 		private bool trackdeltas = false;
 
 		void HandleButton(string button, bool newState)
@@ -288,7 +290,7 @@ namespace BizHawk.Client.EmuHawk
 		}
 
 		ModifierKey _Modifiers;
-		private readonly List<InputEvent> _NewEvents = new List<InputEvent>();
+		[NotNull] private readonly List<InputEvent> _NewEvents = new List<InputEvent>();
 
 		//do we need this?
 		public void ClearEvents()
@@ -299,7 +301,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private readonly Queue<InputEvent> InputEvents = new Queue<InputEvent>();
+		[NotNull] private readonly Queue<InputEvent> InputEvents = new Queue<InputEvent>();
 		public InputEvent DequeueEvent()
 		{
 			lock (this)

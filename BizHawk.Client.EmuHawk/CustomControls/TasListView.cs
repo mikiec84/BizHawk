@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public class TasListView : VirtualListView
@@ -36,13 +38,13 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private Cell _currentPointedCell = new Cell();
+		[NotNull] private Cell _currentPointedCell = new Cell();
 		public Cell CurrentCell
 		{
 			get { return _currentPointedCell; }
 		}
 
-		private Cell _lastPointedCell = new Cell();
+		[NotNull] private Cell _lastPointedCell = new Cell();
 		public Cell LastCell
 		{
 			get { return _lastPointedCell; }

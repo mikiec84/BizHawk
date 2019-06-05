@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk.CustomControls
 {
 	/// <summary>
@@ -15,17 +17,17 @@ namespace BizHawk.Client.EmuHawk.CustomControls
 		/// <summary>
 		/// used for <see cref="MeasureString(string, System.Drawing.Font, float, out int, out int)"/> calculation.
 		/// </summary>
-		private static readonly int[] CharFit = new int[1];
+		[NotNull] private static readonly int[] CharFit = new int[1];
 
 		/// <summary>
 		/// used for <see cref="MeasureString(string, System.Drawing.Font,float, out int, out int)"/> calculation
 		/// </summary>
-		private static readonly int[] CharFitWidth = new int[1000];
+		[NotNull] private static readonly int[] CharFitWidth = new int[1000];
 
 		/// <summary>
 		/// Cache of all the HFONTs used, rather than create them again and again
 		/// </summary>
-		private readonly Dictionary<Font, FontCacheEntry> FontsCache = new Dictionary<Font, FontCacheEntry>();
+		[NotNull] private readonly Dictionary<Font, FontCacheEntry> FontsCache = new Dictionary<Font, FontCacheEntry>();
 
 		class FontCacheEntry
 		{
@@ -35,7 +37,7 @@ namespace BizHawk.Client.EmuHawk.CustomControls
 		/// <summary>
 		/// Cache of all the brushes used, rather than create them again and again
 		/// </summary>
-		private readonly Dictionary<Color, IntPtr> BrushCache = new Dictionary<Color, IntPtr>();
+		[NotNull] private readonly Dictionary<Color, IntPtr> BrushCache = new Dictionary<Color, IntPtr>();
 
 		private Graphics _g;
 		private IntPtr _hdc;

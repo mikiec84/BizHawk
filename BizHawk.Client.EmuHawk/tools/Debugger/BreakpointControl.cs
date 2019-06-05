@@ -8,6 +8,8 @@ using BizHawk.Common.NumberExtensions;
 using BizHawk.Emulation.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class BreakpointControl : UserControl
@@ -17,7 +19,7 @@ namespace BizHawk.Client.EmuHawk
 		public GenericDebugger ParentDebugger { get; set; }
 		public IMemoryDomains MemoryDomains { get; set; }
 
-		private readonly BreakpointList _breakpoints = new BreakpointList();
+		[NotNull] private readonly BreakpointList _breakpoints = new BreakpointList();
 
 		public BreakpointControl()
 		{

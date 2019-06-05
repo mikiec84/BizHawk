@@ -5,6 +5,8 @@ using System.Linq;
 
 using BizHawk.Common.StringExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <summary>
@@ -25,7 +27,7 @@ namespace BizHawk.Client.EmuHawk
 		public Point StartLocation { get; set; }
 		public InputType TextInputType { get; set; }
 
-		public string Message
+		[NotNull] public string Message
 		{
 			get
 			{
@@ -39,13 +41,13 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		public string InitialValue
+		[NotNull] public string InitialValue
 		{
 			get { return PromptBox.Text; }
 			set { PromptBox.Text = value ?? ""; }
 		}
 
-		public string PromptText
+		[NotNull] public string PromptText
 		{
 			get { return PromptBox.Text ?? ""; }
 		}

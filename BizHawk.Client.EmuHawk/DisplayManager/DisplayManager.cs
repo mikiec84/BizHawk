@@ -16,6 +16,8 @@ using OpenTK;
 using BizHawk.Bizware.BizwareGL.Drivers.SlimDX;
 using BizHawk.Bizware.BizwareGL.Drivers.GdiPlus;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <summary>
@@ -145,7 +147,7 @@ namespace BizHawk.Client.EmuHawk
 		public System.Drawing.Text.PrivateFontCollection CustomFonts = new System.Drawing.Text.PrivateFontCollection();
 
 		TextureFrugalizer VideoTextureFrugalizer;
-		Dictionary<string, TextureFrugalizer> LuaSurfaceFrugalizers = new Dictionary<string, TextureFrugalizer>();
+		[NotNull] Dictionary<string, TextureFrugalizer> LuaSurfaceFrugalizers = new Dictionary<string, TextureFrugalizer>();
 		RenderTargetFrugalizer[] ShaderChainFrugalizers;
 		Filters.RetroShaderChain ShaderChain_hq2x, ShaderChain_scanlines, ShaderChain_bicubic;
 		Filters.RetroShaderChain ShaderChain_user;
@@ -893,10 +895,10 @@ namespace BizHawk.Client.EmuHawk
 		bool? LastVsyncSetting;
 		GraphicsControl LastVsyncSettingGraphicsControl;
 
-		Dictionary<string, DisplaySurface> MapNameToLuaSurface = new Dictionary<string,DisplaySurface>();
-		Dictionary<DisplaySurface, string> MapLuaSurfaceToName = new Dictionary<DisplaySurface, string>();
-		Dictionary<string, SwappableDisplaySurfaceSet> LuaSurfaceSets = new Dictionary<string, SwappableDisplaySurfaceSet>();
-		SwappableDisplaySurfaceSet luaNativeSurfaceSet = new SwappableDisplaySurfaceSet();
+		[NotNull] Dictionary<string, DisplaySurface> MapNameToLuaSurface = new Dictionary<string,DisplaySurface>();
+		[NotNull] Dictionary<DisplaySurface, string> MapLuaSurfaceToName = new Dictionary<DisplaySurface, string>();
+		[NotNull] Dictionary<string, SwappableDisplaySurfaceSet> LuaSurfaceSets = new Dictionary<string, SwappableDisplaySurfaceSet>();
+		[NotNull] SwappableDisplaySurfaceSet luaNativeSurfaceSet = new SwappableDisplaySurfaceSet();
 		public void SetLuaSurfaceNativePreOSD(DisplaySurface surface) { luaNativeSurfaceSet.SetPending(surface); }
 
 		/// <summary>

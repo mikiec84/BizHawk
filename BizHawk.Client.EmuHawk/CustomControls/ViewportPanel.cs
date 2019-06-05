@@ -6,6 +6,8 @@ using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <summary>
@@ -120,7 +122,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		Queue<Bitmap> DisposeQueue = new Queue<Bitmap>();
+		[NotNull] Queue<Bitmap> DisposeQueue = new Queue<Bitmap>();
 
 		void SignalPaint()
 		{

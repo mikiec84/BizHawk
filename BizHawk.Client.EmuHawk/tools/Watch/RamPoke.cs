@@ -6,12 +6,14 @@ using System.Windows.Forms;
 
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class RamPoke : Form
 	{
 		// TODO: don't use textboxes as labels
-		private List<Watch> _watchList = new List<Watch>();
+		[NotNull] private List<Watch> _watchList = new List<Watch>();
 
 		public Point InitialLocation { get; set; } = new Point(0, 0);
 
@@ -22,7 +24,7 @@ namespace BizHawk.Client.EmuHawk
 
 		public IToolForm ParentTool { get; set; }
 
-		public void SetWatch(IEnumerable<Watch> watches)
+		public void SetWatch([NotNull] IEnumerable<Watch> watches)
 		{
 			_watchList = watches.ToList();
 		}

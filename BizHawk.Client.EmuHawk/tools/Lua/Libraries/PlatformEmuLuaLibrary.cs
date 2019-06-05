@@ -6,6 +6,8 @@ using System.Threading;
 using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public abstract class PlatformEmuLuaLibrary
@@ -16,7 +18,7 @@ namespace BizHawk.Client.EmuHawk
 
 		public bool IsRebootingCore { get; set; } // pretty hacky.. we dont want a lua script to be able to restart itself by rebooting the core
 
-		protected readonly Dictionary<Type, LuaLibraryBase> Libraries = new Dictionary<Type, LuaLibraryBase>();
+		[NotNull] protected readonly Dictionary<Type, LuaLibraryBase> Libraries = new Dictionary<Type, LuaLibraryBase>();
 
 		public EventWaitHandle LuaWait { get; protected set; }
 
@@ -25,7 +27,7 @@ namespace BizHawk.Client.EmuHawk
 			get { return ScriptList.Where(lf => lf.Enabled); }
 		}
 
-		public readonly LuaFileList ScriptList = new LuaFileList();
+		[NotNull] public readonly LuaFileList ScriptList = new LuaFileList();
 
 		public abstract void CallExitEvent(LuaFile lf);
 		public abstract void CallFrameAfterEvent();

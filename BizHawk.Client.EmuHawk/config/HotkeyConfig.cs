@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class HotkeyConfig : Form
@@ -77,7 +79,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private IEnumerable<InputCompositeWidget> InputWidgets
+		[NotNull] private IEnumerable<InputCompositeWidget> InputWidgets
 		{
 			get
 			{

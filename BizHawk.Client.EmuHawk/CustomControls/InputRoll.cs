@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.CustomControls;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	// Row width depends on font size and padding
@@ -16,13 +18,13 @@ namespace BizHawk.Client.EmuHawk
 	public partial class InputRoll : Control
 	{
 		private readonly GDIRenderer _gdi;
-		private readonly SortedSet<Cell> _selectedItems = new SortedSet<Cell>(new SortCell());
+		[NotNull] private readonly SortedSet<Cell> _selectedItems = new SortedSet<Cell>(new SortCell());
 
 		private readonly VScrollBar _vBar;
 		private readonly HScrollBar _hBar;
 
-		private readonly Timer _hoverTimer = new Timer();
-		private readonly byte[] _lagFrames = new byte[256]; // Large enough value that it shouldn't ever need resizing. // apparently not large enough for 4K
+		[NotNull] private readonly Timer _hoverTimer = new Timer();
+		[NotNull] private readonly byte[] _lagFrames = new byte[256]; // Large enough value that it shouldn't ever need resizing. // apparently not large enough for 4K
 
 		private readonly IntPtr _rotatedFont;
 		private readonly IntPtr _normalFont;

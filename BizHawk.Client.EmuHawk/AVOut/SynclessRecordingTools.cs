@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using BizHawk.Bizware.BizwareGL;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class SynclessRecordingTools : Form
@@ -83,7 +85,7 @@ namespace BizHawk.Client.EmuHawk
 			ShowDialog();
 		}
 
-		private readonly List<FrameInfo> mFrameInfos = new List<FrameInfo>();
+		[NotNull] private readonly List<FrameInfo> mFrameInfos = new List<FrameInfo>();
 
 		struct FrameInfo
 		{

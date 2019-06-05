@@ -13,6 +13,8 @@ using BizHawk.Client.EmuHawk.WinFormExtensions;
 using BizHawk.Common;
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class LuaConsole : ToolFormBase, IToolFormAutoConfig
@@ -23,7 +25,7 @@ namespace BizHawk.Client.EmuHawk
 		private bool _sortReverse;
 		private string _lastColumnSorted;
 
-		private readonly List<string> _consoleCommandHistory = new List<string>();
+		[NotNull] private readonly List<string> _consoleCommandHistory = new List<string>();
 		private int _consoleCommandHistoryIndex = -1;
 
 		public ToolDialogSettings.ColumnList Columns { get; set; }
@@ -221,7 +223,7 @@ namespace BizHawk.Client.EmuHawk
 			UpdateDialog();
 		}
 
-		private readonly List<FileSystemWatcher> _watches = new List<FileSystemWatcher>();
+		[NotNull] private readonly List<FileSystemWatcher> _watches = new List<FileSystemWatcher>();
 
 		private void AddFileWatches()
 		{
@@ -1131,7 +1133,7 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
-		private readonly LuaAutocompleteInstaller LuaAutoInstaller = new LuaAutocompleteInstaller();
+		[NotNull] private readonly LuaAutocompleteInstaller LuaAutoInstaller = new LuaAutocompleteInstaller();
 
 		private void RegisterToTextEditorsSubMenu_DropDownOpened(object sender, EventArgs e)
 		{

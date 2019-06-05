@@ -12,6 +12,8 @@ using BizHawk.Client.EmuHawk.FilterManager;
 using BizHawk.Bizware.BizwareGL;
 using BizHawk.Bizware.BizwareGL.Drivers.OpenTK;
 
+using JetBrains.Annotations;
+
 using OpenTK;
 using OpenTK.Graphics;
 
@@ -111,7 +113,7 @@ namespace BizHawk.Client.EmuHawk.Filters
 			return iosi;
 		}
 
-		List<IOSurfaceInfo> IOSurfaceInfos = new List<IOSurfaceInfo>();
+		[NotNull] List<IOSurfaceInfo> IOSurfaceInfos = new List<IOSurfaceInfo>();
 
 
 		IOSurfaceInfo FindIOSurfaceInfo(string channel, SurfaceDirection direction)

@@ -5,6 +5,8 @@ using BizHawk.Client.Common;
 using System.Globalization;
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 
@@ -25,7 +27,7 @@ namespace BizHawk.Client.EmuHawk
 	public partial class GameShark : Form, IToolForm, IToolFormAutoConfig
 	{
 		#region " Game Genie Dictionary "
-		private readonly Dictionary<char, int> _GBGGgameGenieTable = new Dictionary<char, int>
+		[NotNull] private readonly Dictionary<char, int> _GBGGgameGenieTable = new Dictionary<char, int>
 		{
 			{'0', 0 },
 			{'1', 1 },
@@ -44,7 +46,7 @@ namespace BizHawk.Client.EmuHawk
 			{'E', 14 },
 			{'F', 15 }
 		};
-		private readonly Dictionary<char, long> _GENgameGenieTable = new Dictionary<char, long>
+		[NotNull] private readonly Dictionary<char, long> _GENgameGenieTable = new Dictionary<char, long>
 		{
 			{ 'A', 0 },
 			{ 'B', 1 },
@@ -80,7 +82,7 @@ namespace BizHawk.Client.EmuHawk
 			{ '9', 31 }
 		};
 		//This only applies to the NES
-		private readonly Dictionary<char, int> _NESgameGenieTable = new Dictionary<char, int>
+		[NotNull] private readonly Dictionary<char, int> _NESgameGenieTable = new Dictionary<char, int>
 		{
 			{ 'A', 0 },  // 0000
 			{ 'P', 1 },  // 0001
@@ -103,7 +105,7 @@ namespace BizHawk.Client.EmuHawk
 		// Code: D F 4 7 0 9 1 5 6 B C 8 A 2 3 E
 		// Hex:  0 1 2 3 4 5 6 7 8 9 A B C D E F
 		//This only applies to the SNES
-		private readonly Dictionary<char, int> _SNESgameGenieTable = new Dictionary<char, int>
+		[NotNull] private readonly Dictionary<char, int> _SNESgameGenieTable = new Dictionary<char, int>
 		{
 			{ 'D', 0 },  // 0000
 			{ 'F', 1 },  // 0001
@@ -386,8 +388,8 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 		//Provided by mGBA and endrift
-		UInt32[] GBAGameSharkSeeds = { UInt32.Parse("09F4FBBD", NumberStyles.HexNumber), UInt32.Parse("9681884A", NumberStyles.HexNumber), UInt32.Parse("352027E9", NumberStyles.HexNumber), UInt32.Parse("F3DEE5A7", NumberStyles.HexNumber) };
-		UInt32[] GBAProActionReplaySeeds = { UInt32.Parse("7AA9648F", NumberStyles.HexNumber), UInt32.Parse("7FAE6994", NumberStyles.HexNumber), UInt32.Parse("C0EFAAD5", NumberStyles.HexNumber), UInt32.Parse("42712C57", NumberStyles.HexNumber) };
+		[NotNull] UInt32[] GBAGameSharkSeeds = { UInt32.Parse("09F4FBBD", NumberStyles.HexNumber), UInt32.Parse("9681884A", NumberStyles.HexNumber), UInt32.Parse("352027E9", NumberStyles.HexNumber), UInt32.Parse("F3DEE5A7", NumberStyles.HexNumber) };
+		[NotNull] UInt32[] GBAProActionReplaySeeds = { UInt32.Parse("7AA9648F", NumberStyles.HexNumber), UInt32.Parse("7FAE6994", NumberStyles.HexNumber), UInt32.Parse("C0EFAAD5", NumberStyles.HexNumber), UInt32.Parse("42712C57", NumberStyles.HexNumber) };
 		//blnEncrypted is used to see if the previous line for Slide code was encrypted or not.
 		Boolean blnEncrypted = false;
 		//blnGameShark means, "This is a Game Shark/Action Replay (Not MAX) code."

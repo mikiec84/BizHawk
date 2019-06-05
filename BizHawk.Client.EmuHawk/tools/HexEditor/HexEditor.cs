@@ -18,6 +18,8 @@ using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 using BizHawk.Client.EmuHawk.ToolExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	// int to long TODO: 32 bit domains have more digits than the hex editor can account for and the address covers up the 0 column
@@ -53,11 +55,11 @@ namespace BizHawk.Client.EmuHawk
 		private int fontWidth;
 		private int fontHeight;
 
-		private readonly List<ToolStripMenuItem> _domainMenuItems = new List<ToolStripMenuItem>();
-		private readonly char[] _nibbles = { 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G' };    // G = off 0-9 & A-F are acceptable values
-		private readonly List<long> _secondaryHighlightedAddresses = new List<long>();
+		[NotNull] private readonly List<ToolStripMenuItem> _domainMenuItems = new List<ToolStripMenuItem>();
+		[NotNull] private readonly char[] _nibbles = { 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G' };    // G = off 0-9 & A-F are acceptable values
+		[NotNull] private readonly List<long> _secondaryHighlightedAddresses = new List<long>();
 
-		private readonly Dictionary<int, char> _textTable = new Dictionary<int, char>();
+		[NotNull] private readonly Dictionary<int, char> _textTable = new Dictionary<int, char>();
 
 		private int _rowsVisible;
 		private int _numDigits = 4;

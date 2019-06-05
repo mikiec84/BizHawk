@@ -17,6 +17,8 @@ using BizHawk.Client.EmuHawk.WinFormExtensions;
 using BizHawk.Client.EmuHawk.ToolExtensions;
 using BizHawk.Emulation.Cores.Consoles.Nintendo.QuickNES;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class TAStudio : ToolFormBase, IToolFormAutoConfig, IControlMainform
@@ -28,7 +30,7 @@ namespace BizHawk.Client.EmuHawk
 		public bool IsInMenuLoop { get; private set; }
 		public string StatesPath => PathManager.MakeAbsolutePath(Global.Config.PathEntries["Global", "TAStudio states"].Path, null);
 
-		private readonly List<TasClipboardEntry> _tasClipboard = new List<TasClipboardEntry>();
+		[NotNull] private readonly List<TasClipboardEntry> _tasClipboard = new List<TasClipboardEntry>();
 		private const string CursorColumnName = "CursorColumn";
 		private const string FrameColumnName = "FrameColumn";
 		private BackgroundWorker _seekBackgroundWorker;

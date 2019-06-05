@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using BizHawk.Emulation.Common.IEmulatorExtensions;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class MessageConfig : Form
@@ -43,7 +45,7 @@ namespace BizHawk.Client.EmuHawk
 		private int _dispMessageAnchor = Global.Config.DispMessageanchor;
 		private int _dispAutoholdAnchor = Global.Config.DispAutoholdanchor;
 
-		private readonly Brush _brush = Brushes.Black;
+		[NotNull] private readonly Brush _brush = Brushes.Black;
 		private int _px;
 		private int _py;
 		private bool _mousedown;

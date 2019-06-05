@@ -10,6 +10,8 @@ using BizHawk.Client.Common;
 using System.Threading;
 using System.Diagnostics;
 
+using JetBrains.Annotations;
+
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedMember.Global
 namespace BizHawk.Client.EmuHawk
@@ -23,7 +25,7 @@ namespace BizHawk.Client.EmuHawk
 		[RequiredService]
 		private IVideoProvider VideoProvider { get; set; }
 
-		private readonly Dictionary<int, string> _filterMappings = new Dictionary<int, string>
+		[NotNull] private readonly Dictionary<int, string> _filterMappings = new Dictionary<int, string>
 			{
 				{ 0, "None" },
 				{ 1, "x2SAI" },

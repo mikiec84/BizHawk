@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class InputCompositeWidget : UserControl
@@ -24,7 +26,7 @@ namespace BizHawk.Client.EmuHawk
 			widget.CompositeWidget = this;
 		}
 
-		private static readonly string WidgetTooltipText = "* Escape clears a key mapping\r\n* Disable Auto Tab to multiply bind";
+		[NotNull] private static readonly string WidgetTooltipText = "* Escape clears a key mapping\r\n* Disable Auto Tab to multiply bind";
 		private ToolTip _tooltip;
 		private string _bindingTooltipText;
 
@@ -62,12 +64,12 @@ namespace BizHawk.Client.EmuHawk
 			Parent.SelectNextControl(btnSpecial, true, true, true, true);
 		}
 
-		private readonly ContextMenuStrip _dropdownMenu;
+		[NotNull] private readonly ContextMenuStrip _dropdownMenu;
 
 		public bool AutoTab { get { return widget.AutoTab; } set { widget.AutoTab = value; } }
 		public string WidgetName { get { return widget.WidgetName; } set { widget.WidgetName = value; } }
 
-		public string Bindings { get { return widget.Bindings; } set { widget.Bindings = value; } }
+		[NotNull] public string Bindings { get { return widget.Bindings; } set { widget.Bindings = value; } }
 
 		public void Clear()
 		{

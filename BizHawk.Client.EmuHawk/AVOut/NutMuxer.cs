@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using System.Numerics;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <summary>
@@ -19,8 +21,8 @@ namespace BizHawk.Client.EmuHawk
 
 		public class ReusableBufferPool<T>
 		{
-			private List<T[]> _available = new List<T[]>();
-			private ICollection<T[]> _inuse = new HashSet<T[]>();
+			[NotNull] private List<T[]> _available = new List<T[]>();
+			[NotNull] private ICollection<T[]> _inuse = new HashSet<T[]>();
 
 			private readonly int _capacity;
 
@@ -386,7 +388,7 @@ namespace BizHawk.Client.EmuHawk
 		/// </summary>
 		Queue<NutFrame> audioqueue;
 
-		ReusableBufferPool<byte> _bufferpool = new ReusableBufferPool<byte>(12);
+		[NotNull] ReusableBufferPool<byte> _bufferpool = new ReusableBufferPool<byte>(12);
 
 		#endregion
 

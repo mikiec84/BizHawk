@@ -13,6 +13,8 @@ using BizHawk.Client.Common;
 using BizHawk.Emulation.Cores.Nintendo.NES;
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class NESMusicRipper : Form, IToolFormAutoConfig
@@ -421,7 +423,7 @@ namespace BizHawk.Client.EmuHawk
 		}
 
 
-		List<ApuState> Log = new List<ApuState>();
+		[NotNull] List<ApuState> Log = new List<ApuState>();
 
 		void DebugCallback()
 		{

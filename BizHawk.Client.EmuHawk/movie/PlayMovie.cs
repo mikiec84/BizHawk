@@ -11,11 +11,13 @@ using BizHawk.Client.Common;
 using BizHawk.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class PlayMovie : Form
 	{
-		private readonly PlatformFrameRates PlatformFrameRates = new PlatformFrameRates();
+		[NotNull] private readonly PlatformFrameRates PlatformFrameRates = new PlatformFrameRates();
 
 		private List<IMovie> _movieList = new List<IMovie>();
 		private bool _sortReverse;

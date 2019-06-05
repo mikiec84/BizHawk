@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class BookmarksBranchesBox : UserControl
@@ -16,7 +18,7 @@ namespace BizHawk.Client.EmuHawk
 		private const string FrameColumnName = "FrameColumn";
 		private const string UserTextColumnName = "TextColumn";
 
-		private readonly ScreenshotForm Screenshot = new ScreenshotForm();
+		[NotNull] private readonly ScreenshotForm Screenshot = new ScreenshotForm();
 
 		private TasMovie Movie => Tastudio.CurrentTasMovie;
 		private TasBranch _backupBranch;

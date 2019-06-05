@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using JetBrains.Annotations;
+
 using SlimDX;
 using SlimDX.DirectInput;
 
@@ -9,8 +12,8 @@ namespace BizHawk.Client.EmuHawk
 	{
 		// ********************************** Static interface **********************************
 
-		private static readonly object _syncObj = new object();
-		private static readonly List<GamePad> _devices = new List<GamePad>();
+		[NotNull] private static readonly object _syncObj = new object();
+		[NotNull] private static readonly List<GamePad> _devices = new List<GamePad>();
 		private static DirectInput _dinput;
 
 		public static void Initialize()
@@ -147,8 +150,8 @@ namespace BizHawk.Client.EmuHawk
 		}
 		public int NumButtons { get; private set; }
 
-		private readonly List<string> names = new List<string>();
-		private readonly List<Func<bool>> actions = new List<Func<bool>>();
+		[NotNull] private readonly List<string> names = new List<string>();
+		[NotNull] private readonly List<Func<bool>> actions = new List<Func<bool>>();
 
 		void AddItem(string _name, Func<bool> callback)
 		{

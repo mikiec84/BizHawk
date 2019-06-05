@@ -8,6 +8,8 @@ using NLua;
 using BizHawk.Emulation.Common;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public sealed class GuiLuaLibrary : LuaLibraryBase
@@ -77,11 +79,11 @@ namespace BizHawk.Client.EmuHawk
 		#endregion
 
 		#region Helpers
-		private readonly Dictionary<string, Image> _imageCache = new Dictionary<string, Image>();
+		[NotNull] private readonly Dictionary<string, Image> _imageCache = new Dictionary<string, Image>();
 
-		private readonly Dictionary<Color, SolidBrush> _solidBrushes = new Dictionary<Color, SolidBrush>();
-		private readonly Dictionary<Color, Pen> _pens = new Dictionary<Color, Pen>();
-		private readonly Bitmap _nullGraphicsBitmap = new Bitmap(1, 1);
+		[NotNull] private readonly Dictionary<Color, SolidBrush> _solidBrushes = new Dictionary<Color, SolidBrush>();
+		[NotNull] private readonly Dictionary<Color, Pen> _pens = new Dictionary<Color, Pen>();
+		[NotNull] private readonly Bitmap _nullGraphicsBitmap = new Bitmap(1, 1);
 
 		private DisplaySurface _luaSurface;
 

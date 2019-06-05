@@ -6,6 +6,8 @@ using BizHawk.Emulation.Common.IEmulatorExtensions;
 using BizHawk.Client.Common;
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public class Sound : IDisposable
@@ -19,8 +21,8 @@ namespace BizHawk.Client.EmuHawk
 		private bool _unjamSoundThrottle;
 
 		private readonly ISoundOutput _outputDevice;
-		private readonly SoundOutputProvider _outputProvider = new SoundOutputProvider(); // Buffer for Sync sources
-		private readonly BufferedAsync _bufferedAsync = new BufferedAsync(); // Buffer for Async sources
+		[NotNull] private readonly SoundOutputProvider _outputProvider = new SoundOutputProvider(); // Buffer for Sync sources
+		[NotNull] private readonly BufferedAsync _bufferedAsync = new BufferedAsync(); // Buffer for Async sources
 		private IBufferedSoundProvider _bufferedProvider; // One of the preceding buffers, or null if no source is set
 
 		public Sound(IntPtr mainWindowHandle)

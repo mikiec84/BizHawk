@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	#region win32interop
@@ -741,7 +743,7 @@ namespace BizHawk.Client.EmuHawk
 
 		#endregion
 
-		LvHitTestInfo lvhti = new LvHitTestInfo();
+		[NotNull] LvHitTestInfo lvhti = new LvHitTestInfo();
 		IntPtr ptrlvhti;
 		int selection = -1;
 

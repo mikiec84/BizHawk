@@ -19,6 +19,8 @@ using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.WinFormExtensions;
 using BizHawk.Client.EmuHawk.ToolExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	/// <summary>
@@ -29,8 +31,8 @@ namespace BizHawk.Client.EmuHawk
 		// TODO: DoSearch grabs the state of widgets and passes it to the engine before running, so rip out code that is attempting to keep the state up to date through change events
 		private string _currentFileName = "";
 
-		private RamSearchEngine _searches;
-		private RamSearchEngine.Settings _settings;
+		[NotNull] private RamSearchEngine _searches;
+		[NotNull] private RamSearchEngine.Settings _settings;
 
 		private int _defaultWidth;
 		private int _defaultHeight;
@@ -72,7 +74,7 @@ namespace BizHawk.Client.EmuHawk
 		[OptionalService]
 		public IInputPollable InputPollableCore { get; set; }
 
-		[ConfigPersist]
+		[ConfigPersist, NotNull]
 		public RamSearchSettings Settings { get; set; }
 
 		public bool AskSaveChanges()
@@ -552,14 +554,14 @@ namespace BizHawk.Client.EmuHawk
 			_forcePreviewClear = true;
 		}
 
-		private IEnumerable<int> SelectedIndices => WatchListView.SelectedIndices.Cast<int>();
+		[NotNull] private IEnumerable<int> SelectedIndices => WatchListView.SelectedIndices.Cast<int>();
 
-		private IEnumerable<Watch> SelectedItems
+		[NotNull] private IEnumerable<Watch> SelectedItems
 		{
 			get { return SelectedIndices.Select(index => _searches[index]); }
 		}
 
-		private IEnumerable<Watch> SelectedWatches
+		[NotNull] private IEnumerable<Watch> SelectedWatches
 		{
 			get { return SelectedItems.Where(x => !x.IsSeparator); }
 		}
@@ -976,7 +978,7 @@ namespace BizHawk.Client.EmuHawk
 				AutoSearchTakeLagFramesIntoAccount = true;
 			}
 
-			public ColumnList Columns { get; }
+			[NotNull] public ColumnList Columns { get; }
 			public bool PreviewMode { get; set; }
 			public bool AlwaysExcludeRamWatch { get; set; }
 			public bool AutoSearchTakeLagFramesIntoAccount { get; set; }

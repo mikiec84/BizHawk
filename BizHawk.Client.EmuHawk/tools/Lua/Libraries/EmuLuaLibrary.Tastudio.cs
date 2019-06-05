@@ -7,6 +7,8 @@ using System.Linq;
 using NLua;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	[Description("A library for manipulating the Tastudio dialog of the EmuHawk client")]
@@ -47,7 +49,7 @@ namespace BizHawk.Client.EmuHawk
 			Float,
 		};
 
-		private List<PendingChanges> changeList = new List<PendingChanges>(); //TODO: Initialize it to empty list on a script reload, and have each script have it's own list
+		[NotNull] private List<PendingChanges> changeList = new List<PendingChanges>(); //TODO: Initialize it to empty list on a script reload, and have each script have it's own list
 
 		[LuaMethodExample("if ( tastudio.engaged( ) ) then\r\n\tconsole.log( \"returns whether or not tastudio is currently engaged ( active )\" );\r\nend;")]
 		[LuaMethod("engaged", "returns whether or not tastudio is currently engaged (active)")]

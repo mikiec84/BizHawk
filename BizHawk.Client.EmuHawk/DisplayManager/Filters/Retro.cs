@@ -18,6 +18,8 @@ using BizHawk.Client.EmuHawk.FilterManager;
 using BizHawk.Bizware.BizwareGL;
 using BizHawk.Bizware.BizwareGL.Drivers.OpenTK;
 
+using JetBrains.Annotations;
+
 using OpenTK;
 using OpenTK.Graphics;
 
@@ -25,7 +27,7 @@ namespace BizHawk.Client.EmuHawk.Filters
 {
 	public class RetroShaderChain : IDisposable
 	{
-		static System.Text.RegularExpressions.Regex rxInclude = new Regex(@"^(\s)?\#include(\s)+(""|<)(.*)?(""|>)", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+		[NotNull] static System.Text.RegularExpressions.Regex rxInclude = new Regex(@"^(\s)?\#include(\s)+(""|<)(.*)?(""|>)", RegexOptions.Multiline | RegexOptions.IgnoreCase);
 		static string ResolveIncludes(string content, string baseDirectory)
 		{
 			for (; ; )

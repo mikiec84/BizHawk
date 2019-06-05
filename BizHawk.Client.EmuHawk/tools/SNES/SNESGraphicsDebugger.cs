@@ -36,11 +36,13 @@ using BizHawk.Emulation.Common;
 using BizHawk.Client.EmuHawk;
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public unsafe partial class SNESGraphicsDebugger : Form, IToolFormAutoConfig
 	{
-		List<DisplayTypeItem> displayTypeItems = new List<DisplayTypeItem>();
+		[NotNull] List<DisplayTypeItem> displayTypeItems = new List<DisplayTypeItem>();
 
 		public bool UpdateBefore { get { return false; } }
 		public bool AskSaveChanges() { return true; }
@@ -219,7 +221,7 @@ namespace BizHawk.Client.EmuHawk
 		SNESGraphicsDecoder gd;
 		SNESGraphicsDecoder.ScreenInfo si;
 		SNESGraphicsDecoder.TileEntry[] map;
-		byte[,] spriteMap = new byte[256, 224];
+		[NotNull] byte[,] spriteMap = new byte[256, 224];
 		SNESGraphicsDecoder.BGMode viewBgMode;
 
 		void RegenerateData()

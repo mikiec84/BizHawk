@@ -8,12 +8,14 @@ using System.Windows.Forms;
 using BizHawk.Common;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class ArchiveChooser : Form
 	{
-		IList<ListViewItem> archiveItems = new List<ListViewItem>();
-		ToolTip errorBalloon = new ToolTip();
+		[NotNull] IList<ListViewItem> archiveItems = new List<ListViewItem>();
+		[NotNull] ToolTip errorBalloon = new ToolTip();
 
 		static bool useRegEx = false;
 		static bool matchWhileTyping = true;

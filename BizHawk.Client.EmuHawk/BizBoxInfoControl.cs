@@ -9,11 +9,13 @@ using System.Windows.Forms;
 
 using BizHawk.Emulation.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class BizBoxInfoControl : UserControl
 	{
-		private string url = "";
+		[NotNull] private string url = "";
 
 		public BizBoxInfoControl(CoreAttribute attributes)
 		{

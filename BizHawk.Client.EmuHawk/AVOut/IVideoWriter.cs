@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using BizHawk.Emulation.Common;
 using BizHawk.Common.ReflectionExtensions;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public interface IVideoWriter : IDisposable
@@ -175,7 +177,7 @@ namespace BizHawk.Client.EmuHawk
 	/// </summary>
 	public static class VideoWriterInventory
 	{
-		private static Dictionary<string, VideoWriterInfo> vws = new Dictionary<string, VideoWriterInfo>();
+		[NotNull] private static Dictionary<string, VideoWriterInfo> vws = new Dictionary<string, VideoWriterInfo>();
 
 		static VideoWriterInventory()
 		{

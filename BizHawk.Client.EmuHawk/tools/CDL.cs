@@ -9,6 +9,8 @@ using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk.ToolExtensions;
 using BizHawk.Common;
 
+using JetBrains.Annotations;
+
 //TODO - select which memorydomains go out to the CDL file. will this cause a problem when re-importing it? 
   //perhaps missing domains shouldnt fail a check
 //OR - just add a contextmenu option to the listview item that selects it for export.
@@ -21,9 +23,9 @@ namespace BizHawk.Client.EmuHawk
 {
 	public partial class CDL : ToolFormBase, IToolFormAutoConfig
 	{
-		private RecentFiles _recent_fld = new RecentFiles();
+		[NotNull] private RecentFiles _recent_fld = new RecentFiles();
 
-		[ConfigPersist]
+		[ConfigPersist, NotNull]
 		private RecentFiles _recent
 		{
 			get
@@ -88,7 +90,7 @@ namespace BizHawk.Client.EmuHawk
 			tsbLoggingActive.Checked = value;
 		}
 
-		string[][] listContents = new string[0][];
+		[NotNull] string[][] listContents = new string[0][];
 
 		private void UpdateDisplay(bool force)
 		{

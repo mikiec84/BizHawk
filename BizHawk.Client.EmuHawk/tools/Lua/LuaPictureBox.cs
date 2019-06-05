@@ -5,15 +5,17 @@ using System.Windows.Forms;
 using NLua;
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public class LuaPictureBox : PictureBox
 	{
 		#region Helpers
-		private readonly Dictionary<string, Image> _imageCache = new Dictionary<string, Image>();
+		[NotNull] private readonly Dictionary<string, Image> _imageCache = new Dictionary<string, Image>();
 
-		private readonly Dictionary<Color, SolidBrush> _solidBrushes = new Dictionary<Color, SolidBrush>();
-		private readonly Dictionary<Color, Pen> _pens = new Dictionary<Color, Pen>();
+		[NotNull] private readonly Dictionary<Color, SolidBrush> _solidBrushes = new Dictionary<Color, SolidBrush>();
+		[NotNull] private readonly Dictionary<Color, Pen> _pens = new Dictionary<Color, Pen>();
 
 		private SolidBrush GetBrush(Color color)
 		{

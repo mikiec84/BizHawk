@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+
+using JetBrains.Annotations;
+
 using SlimDX;
 using SlimDX.DirectInput;
 
@@ -6,8 +9,8 @@ namespace BizHawk.Client.EmuHawk
 {
 	public static class KeyInput
 	{
-		private static readonly object _syncObj = new object();
-		private static readonly List<KeyEvent> _eventList = new List<KeyEvent>();
+		[NotNull] private static readonly object _syncObj = new object();
+		[NotNull] private static readonly List<KeyEvent> _eventList = new List<KeyEvent>();
 		private static DirectInput _dinput;
 		private static Keyboard _keyboard;
 

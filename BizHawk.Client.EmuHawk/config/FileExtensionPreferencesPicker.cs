@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using BizHawk.Emulation.Common;
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class FileExtensionPreferencesPicker : UserControl
@@ -16,12 +18,12 @@ namespace BizHawk.Client.EmuHawk
 			_availableSystems = new SystemLookup().AllSystems.ToList();
 		}
 
-		private readonly List<SystemLookup.SystemInfo> _availableSystems;
+		[NotNull] private readonly List<SystemLookup.SystemInfo> _availableSystems;
 
 		public string FileExtension { get; set; }
 		public string OriginalPreference { get; set; }
 
-		public string CurrentlySelectedSystemId
+		[NotNull] public string CurrentlySelectedSystemId
 		{
 			get
 			{

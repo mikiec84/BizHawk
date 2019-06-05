@@ -7,6 +7,8 @@ using System.IO;
 using BizHawk.Client.Common;
 using BizHawk.Emulation.Cores.Nintendo.Gameboy;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class ColorChooserForm : Form
@@ -16,10 +18,10 @@ namespace BizHawk.Client.EmuHawk
 			InitializeComponent();
 		}
 
-		private readonly Color[] _colors = new Color[12];
+		[NotNull] private readonly Color[] _colors = new Color[12];
 
 		// gambatte's default dmg colors
-		private static readonly int[] DefaultCGBColors =
+		[NotNull] private static readonly int[] DefaultCGBColors =
 		{
 			0x00ffffff, 0x00aaaaaa, 0x00555555, 0x00000000,
 			0x00ffffff, 0x00aaaaaa, 0x00555555, 0x00000000,
@@ -27,7 +29,7 @@ namespace BizHawk.Client.EmuHawk
 		};
 
 		// bsnes's default dmg colors with slight tweaking
-		private static readonly int[] DefaultDMGColors =
+		[NotNull] private static readonly int[] DefaultDMGColors =
 		{
 			10798341, 8956165, 1922333, 337157,
 			10798341, 8956165, 1922333, 337157,
@@ -150,7 +152,7 @@ namespace BizHawk.Client.EmuHawk
 		}
 
 		// ini keys for gambatte palette file
-		private static readonly string[] Paletteinikeys =
+		[NotNull] private static readonly string[] Paletteinikeys =
 		{
 			"Background0",
 			"Background1",

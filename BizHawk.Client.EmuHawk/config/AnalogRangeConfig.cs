@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public partial class AnalogRangeConfig : Panel
@@ -9,8 +11,8 @@ namespace BizHawk.Client.EmuHawk
 		private const int ScaleFactor = 4;
 		private const int _3DPadding = 5;
 
-		private readonly Pen _blackPen;
-		private readonly Pen _bluePen;
+		[NotNull] private readonly Pen _blackPen;
+		[NotNull] private readonly Pen _bluePen;
 
 		private int _maxX = 127;
 		private int _maxY = 127;

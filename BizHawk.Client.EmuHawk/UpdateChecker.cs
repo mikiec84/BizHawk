@@ -5,12 +5,14 @@ using System.Threading;
 
 using BizHawk.Client.Common;
 
+using JetBrains.Annotations;
+
 namespace BizHawk.Client.EmuHawk
 {
 	public static class UpdateChecker
 	{
-		private static readonly string _latestVersionInfoURL = "http://tasvideos.org/SystemBizHawkReleaseManager.html";
-		private static readonly TimeSpan _minimumCheckDuration = TimeSpan.FromHours(8);
+		[NotNull] private static readonly string _latestVersionInfoURL = "http://tasvideos.org/SystemBizHawkReleaseManager.html";
+		[NotNull] private static readonly TimeSpan _minimumCheckDuration = TimeSpan.FromHours(8);
 
 		private static bool AutoCheckEnabled
 		{
