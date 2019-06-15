@@ -232,12 +232,7 @@ namespace BizHawk.Client.Common
 
 		public void RemoveRange(IEnumerable<Watch> watches)
 		{
-			var removeList = _cheatList.Where(cheat => watches.Any(w => w == cheat));
-			foreach (var cheat in removeList)
-			{
-				_cheatList.Remove(cheat);
-			}
-
+			_cheatList.RemoveAll(cheat => watches.Any(w => w == cheat));
 			Changes = true;
 		}
 

@@ -170,13 +170,7 @@ namespace BizHawk.Client.EmuHawk
 				{
 					LuaImp.CallExitEvent(file);
 
-					var functions = LuaImp.GetRegisteredFunctions()
-						.Where(lf => lf.Lua == file.Thread);
-
-					foreach (var function in functions)
-					{
-						LuaImp.GetRegisteredFunctions().Remove(function);
-					}
+					LuaImp.GetRegisteredFunctions().RemoveAll(lf => lf.Lua == file.Thread);
 
 					UpdateRegisteredFunctionsDialog();
 
@@ -860,11 +854,7 @@ namespace BizHawk.Client.EmuHawk
 					foreach (var sitem in SelectedItems)
 					{
 						var temp = sitem;
-						var functions = LuaImp.GetRegisteredFunctions().Where(lf => lf.Lua == temp.Thread);
-						foreach (var function in functions)
-						{
-							LuaImp.GetRegisteredFunctions().Remove(function);
-						}
+						LuaImp.GetRegisteredFunctions().RemoveAll(lf => lf.Lua == temp.Thread);
 
 						UpdateRegisteredFunctionsDialog();
 					}
@@ -950,11 +940,7 @@ namespace BizHawk.Client.EmuHawk
 				foreach (var item in items)
 				{
 					var temp = item;
-					var functions = LuaImp.GetRegisteredFunctions().Where(x => x.Lua == temp.Thread);
-					foreach (var function in functions)
-					{
-						LuaImp.GetRegisteredFunctions().Remove(function);
-					}
+					LuaImp.GetRegisteredFunctions().RemoveAll(x => x.Lua == temp.Thread);
 
 					LuaImp.ScriptList.Remove(item);
 				}
