@@ -1373,7 +1373,7 @@ namespace BizHawk.Client.EmuHawk
 				{
 					if (SelectedRows.Any() && LetKeysModifySelection && SelectedRows.First() > 0)
 					{
-						foreach (var row in SelectedRows.ToList())
+						foreach (var row in SelectedRows)
 						{
 							SelectRow(row - 1, true);
 							SelectRow(row, false);
@@ -1384,7 +1384,7 @@ namespace BizHawk.Client.EmuHawk
 				{
 					if (SelectedRows.Any() && LetKeysModifySelection)
 					{
-						foreach (var row in SelectedRows.Reverse().ToList())
+						foreach (var row in SelectedRows.Reverse())
 						{
 							SelectRow(row + 1, true);
 							SelectRow(row, false);
@@ -1696,8 +1696,7 @@ namespace BizHawk.Client.EmuHawk
 					if (toggle && _selectedItems.Any(x => x.RowIndex.HasValue && x.RowIndex == cell.RowIndex))
 					{
 						var items = _selectedItems
-							.Where(x => x.RowIndex.HasValue && x.RowIndex == cell.RowIndex)
-							.ToList();
+							.Where(x => x.RowIndex.HasValue && x.RowIndex == cell.RowIndex);
 
 						foreach (var item in items)
 						{
