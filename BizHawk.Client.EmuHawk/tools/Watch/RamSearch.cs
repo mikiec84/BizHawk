@@ -1520,10 +1520,7 @@ namespace BizHawk.Client.EmuHawk
 
 		private void ErrorIconButton_Click(object sender, EventArgs e)
 		{
-			var outOfRangeAddresses = _searches.OutOfRangeAddress.ToList();
-
-			SetRemovedMessage(outOfRangeAddresses.Count);
-
+			SetRemovedMessage(_searches.OutOfRangeAddress.Count());
 			UpdateList();
 			ToggleSearchDependentToolBarItems();
 		}

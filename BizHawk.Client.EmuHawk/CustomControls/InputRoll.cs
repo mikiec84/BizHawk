@@ -2053,13 +2053,11 @@ namespace BizHawk.Client.EmuHawk
 			{
 				int pos = 0;
 
-				var columns = VisibleColumns.ToList();
-
-				for (int i = 0; i < columns.Count; i++)
+				foreach (var col in VisibleColumns)
 				{
-					columns[i].Left = pos;
-					pos += columns[i].Width.Value;
-					columns[i].Right = pos;
+					col.Left = pos;
+					pos += col.Width.Value;
+					col.Right = pos;
 				}
 
 				DoChangeCallback();

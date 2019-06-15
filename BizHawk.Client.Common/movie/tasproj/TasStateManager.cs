@@ -229,25 +229,18 @@ namespace BizHawk.Client.Common
 		/// </summary>
 		public bool Invalidate(int frame)
 		{
-			bool anyInvalidated = false;
+			if (!Any()) return false;
 
-			if (Any())
+			if (frame == 0) // Never invalidate frame 0
 			{
-				if (frame == 0) // Never invalidate frame 0
-				{
-					frame = 1;
-				}
-
-				List<KeyValuePair<int, StateManagerState>> statesToRemove = _states.Where(s => s.Key >= frame).ToList();
-				anyInvalidated = statesToRemove.Any();
-
-				foreach (var state in statesToRemove)
-				{
-					RemoveState(state.Key);
-				}
-
-				CallInvalidateCallback(frame);
+				frame = 1;
 			}
+
+			var anyInvalidated = _states.Where(s => s.Key >= frame)
+				.Select(state => RemoveState(state.Key))
+				.Any(); //TODO should be `.Any(b => b)`?
+
+			CallInvalidateCallback(frame);
 
 			return anyInvalidated;
 		}
